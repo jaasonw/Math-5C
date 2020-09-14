@@ -1,0 +1,211 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, array, fancyhdr, enumerate, enumitem}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.2 Applications of Propositional Logic}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\not\neg
+
+
+
+% draws a black square for proofs
+\newcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] \solution{#3}
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+\begin{problem}{1} {Translate the given statement into propositional logic using 
+  the propositions provided: You cannot edit a protected Wikipedia entry unless you are an
+   administrator.\\
+   Let e = "You can edit a protected Wikipedia entry"\\
+   Let a = "You are an administrator." }{
+    $e \to a$
+  }
+\end{problem}
+\begin{problem}{5} {You are eligible to be President of the U.S.A. only if you 
+  are at least 35 years old, were born in the U.S.A, or at the time of your birth 
+  both of your parents were citizens, and you have lived at least 14 years in 
+  the country\\
+  Let e = "You are eligible to be President of the U.S.A.," \\
+  Let a = "You are at least 35 years old,"\\
+  Let b = "You were born in the U.S.A,"\\
+  Let p = "At the time of your birth, both of your parents where citizens,"\\
+  Let r = "You have lived at least 14 years in the U.S.A." }{
+    $((a \land b) \lor (p \land r)) \to e$
+  }
+\end{problem}
+\begin{nestedproblem}{7} {Express these system speciﬁcations using the propositions\\ 
+  Let p = "The message is scanned for viruses"\\
+  Let q = "The message was sent from an unknown system"}{
+    \problem{a}
+    {The message is scanned for viruses whenever the message was sent from an unknown system}
+    {$p \to q$}
+    \problem{b}
+    {The message was sent from an unknown system but it was not scanned for viruses}
+    {$p \land \not q$}
+    \problem{c}
+    {It is necessary to scan the message for viruses whenever it was sent from an unknown system}
+    {$q \to p$}
+    \problem{d}
+    {When a message is not sent from an unknown system it is not scanned for viruses}
+    {$\not q \to \not p$}
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{problem}{9} {Are these system specifications consistent?\\
+  The system is in multiuser state if and only if it is operating normally\\
+  If the system is operating normally, the kernel is functioning.\\
+  The kernel is not functioning or the system is in interrupt mode\\
+  If the system is not in multiuser state, then it is in interrupt mode\\
+  The system is not in interrupt mode
+  }{
+      \\
+      Let $p$ be "The system is in multiuser state"\\
+      Let $q$ be "The system is operating normally"\\
+      Let $r$ be "The kernel is functioning"\\
+      Let $s$ be "the system is in interrupt mode"\\
+      The specifications can be written as: $p \iff q, q \to r , \not r \lor s, \not q \to s , \not s$\\
+      In order for the system to be consistent, the expression \\
+      $(p \iff q) \land (q \to r) \land (\not r \lor s)\land (\not q \to s) \land (\not s)$ 
+      must be able to evaluate to true.\\
+      In order for $\not s$ to be true, $s$ must 
+      be false.\\
+      If $s$ is false then $\not q \to s$ and $\not r \lor s$ can be rewritten as $\not q \to false$ and  $\not r \lor false$ respectively.\\ 
+      From this we can conclude that q must be true and r must be false.\\
+      As a result we can rewrite $q \to r$ as $true \to false$, which is a contradiction.\\
+      $\therefore$ The system is not consistent
+  }
+\end{problem}
+\begin{problem}{13} {What Boolean search would you use to look for Webpages about beaches in New 
+    Jersey? What if you wanted to find Web pages about beaches on the isle of 
+    Jersey (in the English Channel)?
+  }{
+    To search for beaches in New Jersey, I would search for "Beaches AND New AND Jersey".\\
+    To search for beaches on the isle of Jersey, I would search for "Beaches AND Jersey AND NOT New".\\
+  }
+\end{problem}
+
+\begin{problem}{17} {When three professors are seated in a restaurant, the 
+  hostess asks them: "Does everyone want coffee?" The first professor says: "I 
+  do not know." The second professor then says: "I do not know." Finally, the 
+  third professor says: "No, not everyone wants coffee." The hostess comes back 
+  and gives coffee to the professors who want it. How did she figure out who 
+  wanted coffee?
+  }{
+    The hostess brings back 2 coffees for the first 2 professors. This is because the first two professors want coffee but do 
+    not yet know if all 3 professors want coffee but when the hostess asks the 
+    third professor, he does not want coffee so he knows for certain that not all three want coffee
+  }
+\end{problem}
+\pagebreak
+
+\begin{problem}{18} {When planning a party you want to know whom to invite. Among the people you would like to invite are three touchy friends. You know that if Jasmine attends, she will become unhappy if Samir is there, Samir will attend only if Kanti will be there, and Kanti will not attend unless Jasmine also does. Which combinations of these three friends can you invite so as not to make someone unhappy?
+  }{
+    \\
+    Let p = Jasmine attends\\
+    Let q = Samir attends\\
+    Let r = Kanti attends\\
+    We can express the party plan using the propositions $q \to \not p,\ r \to q,\ r \to p$\\
+    There are 3 possible ways for this system to be consistent.\\\\
+    The most simple and trivial way to satisfy this system is for p, q, and r to be false.\\
+    $\therefore$ A possible way for no one to be unhappy is to simply invite no one.\\\\
+    In order for $r \to p$ to be true, both $r$ and $p$ may be true, only p may be true, or both r and p may be false\\
+    If we consider $p = true$ then given $q \to \not p$, we must conclude that $q = false$\\
+    $\therefore$ One such such combination that would satisfy all attendees is to invite Jasmine and Kanti\\\\
+    However, $p = true$ does not imply that $r$ has to be true\\
+    $\therefore$ The last possible combination would be to only invite Jasmine\\
+  }
+\end{problem}
+\begin{nestedproblem}{}{Exercises 19–23 relate to inhabitants of the island of knights and knaves created by Smullyan, where knights always tell the truth and knaves always lie. You encounter two people, A and B. Determine, if possible, what A and B are if they address you in the ways described. If you cannot determine what these two people are, can you draw any conclusions?}{
+  \begin{problem}{19} {A says "At least one of us is a knave" and B says nothing.}{
+    If we were to assume A is a knave, then we could assume his statement his false, which means neither of them are knaves. This would contradict our assumption that A is a knave, $\therefore$ A is a knight which means we can conclude that B must be a knave
+  }
+  \end{problem}
+  \begin{problem}{23} {A says "We are both knaves", B says nothing}{
+    If we were to assume A is a knave, then it is not possible for both A and B to be knaves and it is not possible for B to be a knave.\\
+    A cannot be a knight because it would contract his assertion that both are knaves.\\
+    $\therefore$ We can conclude that A is a knave and B is a knight.
+  }
+  \end{problem}
+}
+\end{nestedproblem}
+\pagebreak
+\begin{problem}{33} {Steve would like to determine the relative salaries of three coworkers using two facts. First, he knows that if Fred is not the highest paid of the three, then Janice is. Second, he knows that if Janice is not the lowest paid, then Maggie is paid the most. Is it possible to determine the relative salaries of Fred, Maggie, and Janice from what Steve knows? If so, who is paid the most and who the least? Explain your reasoning.}{\\
+  Let f = Fred is the highest paid\\
+  Let j = Janice is the highest paid\\
+  Let k = Janice is the lowest paid\\
+  Let m = Maggie is the highest paid\\\\
+  Steve's facts can be written as $\not f \to j$, $\not k \to m$, $j \to \not k$ and the system can be represented with the truth table\\
+  $\begin{array}{c c c c | c | c | c | c }
+    f & j & k & m & \not f \to j & \not k \to m & j \to \not k & (\not f \to j) \land (\not k \to m) \land (j \to \not k) \\
+    \hline
+    T & T & T & T & T & T & F & F \\
+    T & T & T & F & T & T & F & F \\
+    T & T & F & T & T & T & T & T \\
+    T & T & F & F & T & F & T & F \\
+    T & F & T & T & T & T & T & T \\
+    \hline
+    T & F & T & F & T & T & T & T \\
+    \hline
+    T & F & F & T & T & T & T & T \\
+
+    T & F & F & F & T & F & T & F \\
+    F & T & T & T & T & T & F & F \\
+    F & T & T & F & T & T & F & F \\
+    F & T & F & T & T & T & T & T \\
+    F & T & F & F & T & F & T & F \\
+    F & F & T & T & F & T & T & F \\
+    F & F & T & F & F & T & T & F \\
+    F & F & F & T & F & T & T & F \\
+    F & F & F & F & F & F & T & F \\
+  \end{array}$\\
+  The table indicates that the system is consistent with 4 different scenarios, but logically, multiple people cannot have the highest salary so only the scenario where Fred makes the most and Janice the least is possible. \\
+  $\therefore$ the order of salaries from most to least is Fred, Maggie, and Janice
+}
+\end{problem}
+
+\end{document}

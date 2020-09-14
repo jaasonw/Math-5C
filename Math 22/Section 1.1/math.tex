@@ -1,0 +1,360 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, array, fancyhdr, enumerate, enumitem}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.1 Propositional Logic}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% draws a black square for proofs
+\newcommand{\qed}{\hfill$\blacksquare$}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\step}[2]{\text{#1} && \text{#2}\\}
+
+% bolded solution word xd
+\newcommand{\solution}[1]{
+  \textbf{Solution:} #1
+}
+
+% a problem with solution indented (question, answer)
+\newcommand{\problemindent}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] \solution{#3}
+    \end{enumerate}
+  \end{enumerate}
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+      #3
+  \end{enumerate}
+  \hfill
+}
+
+
+\begin{document}
+\pagestyle{useheader}
+\begin{problem}{1} {Which of these sentences are propositions? What are the 
+  truth values of those that are propositions?}{
+    \problemindent{a}{Boston is the capital of Massachusetts.} {True}
+    \problemindent{b}{Miami is the capital of Florida.} {False}
+    \problemindent{c}{$2+3=5$} {True}
+    \problemindent{d}{$5+7=10$} {False}
+    \problemindent{e}{$x+2=11$} {Not a proposition}
+    \problemindent{f}{Answer this question. } {Not a proposition}
+  }
+\end{problem}
+\begin{problem}{3} {What is the negation of each of these propositions?}{
+    \problemindent{a}{Mei has an MP3 player}{Mei does not have an MP3 player}
+    \problemindent{b}{There is no pollution in New Jersey}{There is pollution in New Jersey}
+    \problemindent{c}{$2+1=3$}{$2+1 \neq 3$}
+    \problemindent{d}{The summer in Maine is hot and sunny}{The summer in Maine is cold and cloudy}
+  }
+\end{problem}
+\begin{problem}{9} {Let p and q be the propositions “Swimming at the New Jersey shore is allowed” and “Sharks have been spotted near the shore,” respectively. Express each of these compound propositions as an English sentence. }{
+    \problemindent{a}{$\neg q$}{Sharks have not been spotted near the shore}
+    \problemindent{b}{$p \land q$}{Swimming at the New Jersey shore is allowed and sharks have been spotted near the shore}
+    \problemindent{c}{$\neg p \lor q$}{Swimming at the New Jersey shore is not allowed or sharks have been spotted near the shore}
+    \problemindent{d}{$p \rightarrow \neg q$}{If swimming at the New Jersey shore is allowed then sharks have not been spotted near the shore}
+    \problemindent{e}{$\neg q \rightarrow p$}{If sharks have not been spotted near the shore then swimming at the New Jersey shore is allowed}
+    \problemindent{f}{$\neg p \rightarrow \neg q$}{If swimming at the New Jersey shore is not allowed then sharks have not been spotted near the shore}
+    \problemindent{g}{$p \leftrightarrow \neg q$}{Swimming at the New Jersey shore is allowed only if sharks have not been spotted near the shore}
+    \problemindent{h}{$\neg p \land (p \lor \neg q)$}{Swimming at the New Jersey shore is not allowed and either swimming at the New Jersey shore is allowed or sharks have not been spotted near the shore}
+  }
+\end{problem}
+\begin{problem}{15} {
+  Let p, q, and r be the propositions\\
+  p : Grizzly bears have been seen in the area\\
+  q : Hiking is safe on the trail.\\
+  r : Berries are ripe along the trail.\\
+  Write these propositions using p, q, and r and logical connectives (including negations). 
+  }{
+    \problemindent{a}{Berries are ripe along the trail, but grizzly bears have not been seen in the area.}
+      {$r \land \neg p$}
+    \problemindent{b}{Grizzly bears have not been seen in the area and hiking on the trail is safe, but berries are ripe along the trail}
+      {$\neg p \land q \land \neg r$}
+    \problemindent{c}{If berries are ripe along the trail, hiking is safe if and only if grizzly bears have not been seen in the area.}
+      {$r \rightarrow (q \leftrightarrow \neg p)$}
+    \problemindent{d}{It is not safe to hike on the trail, but grizzly bears have not been seen in the area and the berries along the trail are ripe.}
+      {$\neg q \land \neg p \land r$}
+    \problemindent{e}{For hiking on the trail to be safe, it is necessary but not sufﬁcient that berries not be ripe along the trail and for grizzly bears not to have been seen in the area.}
+      {I don't know please send help}
+    \problemindent{f}{Hiking is not safe on the trail whenever grizzly bears have been seen in the area and berries are ripe along the trail. }
+      {$(p \land r) \rightarrow q$}
+  }
+\end{problem}
+\begin{problem}{17} {Determine whether each of these conditional statements is true or false. Write these propositions using p, q, and r and logical connectives (including negations). }{
+    \problemindent{a}{If 1+1=2, then 2+2=5.}{False}
+    \problemindent{b}{If 1+1=3, then 2+2=4}{True}
+    \problemindent{c}{If 1+1=3, then 2+2=5. }{True}
+    \problemindent{d}{If monkeys can ﬂy, then 1+1=3.}{True}
+  }
+\end{problem}
+\begin{problem}{25} {Write each of these propositions in the form “p if and only if q” in English.}{
+    \problemindent{a}{If it is hot outside you buy an ice cream cone, and if you buy an ice cream cone it is hot outside. }
+      {You buy an ice cream cone if and only if it is hot outside}
+    \problemindent{b}{For you to win the contest it is necessary and sufficient that you have the only winning ticket.}
+      {You win the context if and only if you have the winning ticket}
+    \problemindent{c}{You get promoted only if you have connections, and you have connections only if you get promoted.}
+      {You will get promoted if and only if you have connections}
+    \problemindent{d}{If you watch television your mind will decay, and conversely.}
+      {Your mind will decay if and only if you watch television}
+    \problemindent{e}{The trains run late on exactly those days when I take it. }
+      {I take the train if and only if they run late}
+  }
+\end{problem}
+\begin{problem}{27} {State the converse, contrapositive, and inverse of each of these conditional statements.}{
+  \problemindent{a}{If it snows today, I will ski tomorrow.}{
+    \\
+    Converse: If I ski tomorrow, then it snowed today\\
+    Inverse: If it doesn't snow today, I will not ski tomorrow\\
+    Contrapositive: If I do not ski tomorrow, then it did not snow today
+  }
+  \problemindent{b}{I come to class whenever there is going to be a quiz.}{
+    \\
+    Converse: If there is going to be a quiz then I come to class\\
+    Inverse: If I don't come to class then there will not be a quiz\\
+    Contrapositive: If there is not going to be a quiz then I will not come to class
+  }
+  \problemindent{c}{A positive integer is a prime only if it has no divisors other than 1 and itself}{
+    \\
+    Converse: If a positive integer has no divisors other than 1 and itself then it is prime\\
+    Inverse: If a positive integer not prime then it has divisors other than 1 and itself\\
+    Contrapositive: If a positive integer has divisors other than 1 and itself then it is not prime
+  }
+}
+\end{problem}
+\pagebreak
+\begin{problem}{33} {Construct a truth table for each of these compound propositions.}{
+  \problemindent{a}{$(p \lor q) \rightarrow (p \oplus q)$}{
+    $\begin{array}{c c | c | c | c}
+      p & q & p \lor q & p \oplus q & (p \lor q) \rightarrow (p \oplus q) \\
+      \hline
+      T & T & T & F & F \\
+      T & F & T & T & T \\
+      F & T & T & T & T \\
+      F & F & F & F & T \\
+    \end{array}$
+  }
+  \problemindent{b}{$(p \oplus q) \rightarrow (p \land q)$}{
+    $\begin{array}{c c | c | c | c}
+      p & q & p \oplus q & p \land q & (p \oplus q) \rightarrow (p \land q) \\
+      \hline
+      T & T & F & T & T \\
+      T & F & T & F & F \\
+      F & T & T & F & F \\
+      F & F & F & F & T \\
+    \end{array}$
+  }
+  \problemindent{c}{$(p \lor q) \oplus (p \land q)$}{
+    $\begin{array}{c c | c | c | c}
+      p & q & p \lor q & p \land q & (p \lor q) \oplus (p \land q) \\
+      \hline
+      T & T & T & T & F \\
+      T & F & T & F & T \\
+      F & T & T & F & T \\
+      F & F & F & F & F \\
+    \end{array}$
+  }
+  \problemindent{d}{$(p \leftrightarrow q) \oplus (\neg p \leftrightarrow q)$}{
+    $\begin{array}{c c | c | c | c | c}
+      p & q & \neg p & p \leftrightarrow q & \neg p \leftrightarrow q & (p \leftrightarrow q) \oplus (\neg p \leftrightarrow q) \\
+      \hline
+      T & T & F & T & F & T \\
+      T & F & F & F & T & T \\
+      F & T & T & F & T & T \\
+      F & F & T & T & F & T \\
+    \end{array}$
+  }
+  \problemindent{e}{$(\neg p \leftrightarrow \neg r) \oplus (p \leftrightarrow q)$}{
+    $\begin{array}{c c c | c | c | c | c | c}
+      p & q & r & \neg p & \neg r & \neg p \leftrightarrow \neg r & p \leftrightarrow q & (\neg p \leftrightarrow \neg r) \oplus (p \leftrightarrow q)\\
+      \hline
+      T & T & T & F & F & T & T & F \\
+      T & T & F & F & T & F & T & T \\
+      T & F & T & F & F & T & F & T \\
+      T & F & F & F & T & F & F & F \\
+      F & T & T & T & F & F & F & F \\
+      F & T & F & T & T & T & F & T \\
+      F & F & T & T & F & F & T & T \\
+      F & F & F & T & T & T & T & F \\
+  \end{array}$
+  }
+  \problemindent{f}{$(p \oplus q) \rightarrow (p \oplus \neg q)$}{
+    $\begin{array}{c c | c | c | c | c}
+      p & q & p \oplus q & \neg q & p \oplus \neg q & (p \oplus q) \rightarrow (p \oplus \neg q)\\
+      \hline
+      T & T & F & F & T & T \\
+      T & F & T & T & F & F \\
+      F & T & T & F & F & F \\
+      F & F & F & T & T & T \\
+  \end{array}$
+  }
+}
+\end{problem}
+\pagebreak
+\begin{problem}{37} {Construct a truth table for each of these compound propositions.}{
+  \problemindent{a}{$p \rightarrow (\neg q \lor r)$}{
+    $\begin{array}{c c c| c | c | c}
+      p & q & r & \neg q & \neg q \lor r & p \rightarrow (\neg q \lor r) \\
+      \hline
+      T & T & T & F & T & T \\
+      T & T & F & F & F & F \\
+      T & F & T & T & T & T \\
+      T & F & F & T & T & T \\
+      F & T & T & F & T & T \\
+      F & T & F & F & F & T \\
+      F & F & T & T & T & T \\
+      F & F & F & T & T & T \\
+  \end{array}$
+  }
+  \problemindent{b}{$\neg p \rightarrow (q \rightarrow r)$}{
+    $\begin{array}{c c c| c | c | c }
+      p & q & r & \neg p & q \rightarrow r & \neg p \rightarrow (q \rightarrow r) \\
+      \hline
+      T & T & T & F & T & T \\
+      T & T & F & F & F & T \\
+      T & F & T & F & T & T \\
+      T & F & F & F & T & T \\
+      F & T & T & T & T & T \\
+      F & T & F & T & F & F \\
+      F & F & T & T & T & T \\
+      F & F & F & T & T & T \\
+  \end{array}$
+  }
+  \problemindent{c}{$(p \rightarrow q) \lor (\neg p \rightarrow r)$}{
+    $\begin{array}{c c c| c | c | c | c}
+      p & q & r & p \rightarrow q & \neg p & \neg p \rightarrow r & (p \rightarrow q) \lor (\neg p \rightarrow r) \\
+      \hline
+      T & T & T & T & F & F & T \\
+      T & T & F & T & F & T & T \\
+      T & F & T & F & F & T & T \\
+      T & F & F & F & F & T & T \\
+      F & T & T & T & T & T & T \\
+      F & T & F & T & T & T & T \\
+      F & F & T & T & T & T & T \\
+      F & F & F & T & T & T & T \\
+  \end{array}$
+  }
+  \problemindent{d}{$(p \rightarrow q) \land (\neg p \rightarrow r)$}{
+    $\begin{array}{c c c| c | c | c | c}
+      p & q & r & p \rightarrow q & \neg p & \neg p \rightarrow r & (p \rightarrow q) \land (\neg p \rightarrow r) \\
+      \hline
+      T & T & T & T & F & F & T \\
+      T & T & F & T & F & T & T \\
+      T & F & T & F & F & T & F \\
+      T & F & F & F & F & T & F \\
+      F & T & T & T & T & T & T \\
+      F & T & F & T & T & T & F \\
+      F & F & T & T & T & T & T \\
+      F & F & F & T & T & T & F \\
+  \end{array}$
+  }
+  \problemindent{e}{$(p \leftrightarrow q) \lor (\neg q \leftrightarrow r)$}{
+    $\begin{array}{c c c| c | c | c | c}
+      p & q & r & p \leftrightarrow q & \neg q & \neg q \leftrightarrow r & (p \leftrightarrow q) \lor (\neg q \leftrightarrow r) \\
+      \hline
+      T & T & T & T & F & F & T \\
+      T & T & F & T & F & T & T \\
+      T & F & T & F & T & T & T \\
+      T & F & F & F & T & F & F \\
+      F & T & T & F & F & F & F \\
+      F & T & F & F & F & T & T \\
+      F & F & T & T & T & T & T \\
+      F & F & F & T & T & F & T \\
+  \end{array}$
+  }
+  \problemindent{f}{$(\neg p \leftrightarrow \neg q) \leftrightarrow (q \leftrightarrow r)$}{
+    $\begin{array}{c c c| c | c | c | c | c}
+      p & q & r & \neg p & \neg q & \neg p \leftrightarrow \neg q & q \leftrightarrow r & (\neg p \leftrightarrow \neg q) \leftrightarrow (q \leftrightarrow r) \\
+      \hline
+      T & T & T & F & F & T & T & T \\
+      T & T & F & F & F & T & F & F \\
+      T & F & T & F & T & F & F & T \\
+      T & F & F & F & T & F & T & F \\
+      F & T & T & T & F & F & T & F \\
+      F & T & F & T & F & F & F & T \\
+      F & F & T & T & T & T & F & F \\
+      F & F & F & T & T & T & T & T \\
+  \end{array}$
+  }
+}
+\end{problem}
+
+\begin{problem}{38} {Construct a truth table for $((p \rightarrow q ) \rightarrow r) \rightarrow s$}{
+  \problemindent{}{$(\neg p \leftrightarrow \neg q) \leftrightarrow (q \leftrightarrow r)$}{
+    $\begin{array}{c c c c | c | c | c }
+      p & q & r & s & p \rightarrow q & (p \rightarrow q ) \rightarrow r) & ((p \rightarrow q ) \rightarrow r) \rightarrow s \\
+      \hline
+      T & T & T & T & T & T & T \\
+      T & T & T & F & T & T & F \\
+      T & T & F & T & T & F & T \\
+      T & T & F & F & T & F & T \\
+      T & F & T & T & F & F & T \\
+      T & F & T & F & F & F & T \\
+      T & F & F & T & F & T & T \\
+      T & F & F & F & F & T & F \\
+      F & T & T & T & T & T & T \\
+      F & T & T & F & T & T & F \\
+      F & T & F & T & T & T & T \\
+      F & T & F & F & T & T & F \\
+      F & F & T & T & T & T & T \\
+      F & F & T & F & T & T & F \\
+      F & F & F & T & T & T & T \\
+      F & F & F & F & T & T & F \\
+
+  \end{array}$
+  }
+}
+\end{problem}
+\pagebreak
+\begin{problem}{44} {Evaluate each of these expressions}{
+  \problem{a}{$11000\land11011(01011\lor11011)$}{
+    \begin{gather*}
+      01011\lor11011 = 11011\\
+      11000\land11011 = 11000\\
+      11000\land11011(01011\lor11011) = 11000
+    \end{gather*}
+  }
+  \problem{b}{$ (01111 \land 10101) \lor 01000$}{
+    \begin{gather*}
+      01111 \land 10101 = 00101\\
+      00101 \lor 01000 = 01101\\
+      (01111 \land 10101) \lor 01000 = 01101
+    \end{gather*}
+  }
+  \problem{c}{$(01010 \oplus 11011) \oplus 01000$}{
+    \begin{gather*}
+      01010 \oplus 11011 = 10001\\
+      10001 \oplus 01000 = 11001\\
+      (01010 \oplus 11011) \oplus 01000 = 11001
+    \end{gather*}
+  }
+  \problem{d}{$(11011 \lor 01010) \land (10001 \lor 11011) $}{
+    \begin{gather*}
+      11011 \lor 01010 = 11011\\
+      10001 \lor 11011 = 11011\\
+      11011 \land 11011 = 11011\\
+      (11011 \lor 01010) \land (10001 \lor 11011) = 11011
+    \end{gather*}
+  }
+}
+\end{problem}
+
+\end{document}

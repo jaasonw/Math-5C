@@ -1,0 +1,315 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, array, fancyhdr, enumerate, enumitem, stackengine}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.6 Rules of Inference}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\lnot\neg
+\let\xor\oplus
+
+
+
+% draws a black square for proofs
+\newcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\proofstep}[2]{&#1 &&\ \  \text{#2}}
+
+% args: (number, question, steps, explanation)
+\newenvironment{twocolproof}[4]{
+    \begin{enumerate}
+        \item[\bfseries{#1}] #2
+        \begin{align}
+            #3
+        \end{align}
+        #4
+    \end{enumerate}
+    \setcounter{equation}{0}
+}
+
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] \solution{#3}
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+  \begin{nestedproblem}{3}{What rule of inference is used in each of these arguments?}{
+    \begin{problem}{a}{Alice is a mathematics major. Therefore, Alice is either a mathematics major or a computer science major.}{
+      Let us assume\\
+      Let p = Alice is a mathematics major\\
+      Let q = Alice is a computer science major\\
+      The statement can be written as
+      $$\frac{p}{\therefore p \lor q}$$
+      This follows the rule of addition
+    }
+    \end{problem}
+    \begin{problem}{b}{Jerry is a mathematics major and a computer science major. Therefore, Jerry is a mathematics major.}{
+      Let us assume\\
+      Let p = Jerry is a mathematics major\\
+      Let q = Jerry is a computer science major\\
+      The statement can be written as
+      $$\frac{\therefore p \land q}{p}$$
+      This follows the rule of simplification
+    }
+    \end{problem}
+    \begin{problem}{c}{If it is rainy, then the pool will be closed. It is rainy. Therefore, the pool is closed.}{
+      Let us assume\\
+      Let p = It is rainy\\
+      Let q = The pool is closed\\
+      The statement can be written as
+      $$\frac{\stackanchor{$p$}{$p \to q$}}{p}$$
+      This follows the rule of modus ponens
+    }
+    \end{problem}
+    \begin{problem}{d}{If it snows today, the university will close. The university is not closed today. Therefore, it did not snow today.}{
+      Let us assume\\
+      Let p = It snowed today\\
+      Let q = The university is closed\\
+      The statement can be written as
+      $$\frac{\stackanchor{$\lnot q$}{$p \to q$}}{\lnot p}$$
+      This follows the rule of modus tollens
+    }
+    \end{problem}
+    \pagebreak
+    \begin{problem}{e}{If I go swimming, then I will stay in the sun too long. If I stay in the sun too long, then I will sunburn. Therefore, if I go swimming, then I will sunburn.}{
+      Let us assume\\
+      Let p = I go swimming\\
+      Let q = I stay in the sun for too long\\
+      Let r = I get sunburned\\
+      The statement can be written as
+      $$\frac{\stackanchor{$p \to q$}{$q \to r$}}{\therefore p \to r}$$
+      This follows the rule of hypothetical syllogism
+    }
+    \end{problem}
+  }
+  \end{nestedproblem}
+  \begin{twocolproof}{5}{Use rules of inference to show that the hypotheses "Randy works hard," "If Randy works hard, then he is a dull boy," and "If Randy is a dull boy, then he will not get the job" imply the conclusion "Randy will not get the job."}{
+    \proofstep{\text{Let p} = \text{Randy works hard}}{}\\
+    \proofstep{\text{Let q} = \text{Randy is a dull boy}}{}\\
+    \proofstep{\text{Let r} = \text{Randy will get a job}}{}\\
+    \proofstep{p}{Premise}\\
+    \proofstep{p \to q}{Premise}\\
+    \proofstep{q \to \lnot r}{Premise}\\
+    \proofstep{q}{Modus ponens on (4) and (5)}\\
+    \proofstep{\lnot r}{Modus tollens on (6) and (7)}
+  }{}
+  \end{twocolproof}
+  \begin{nestedproblem}{9}{For each of these collections of premises, what relevant conclusion  or  conclusions can be drawn? Explain the rules of inference used to obtain each conclusion from the premises.}{
+    \begin{twocolproof}{a}{"If I take the day off, it either rains or snows." "I took Tuesday off or I took Thursday off." "It was sunny on Tuesday." "It did not snow on Thursday."}{
+      \proofstep{\text{Let P(x)} = \text{I take x day off}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{It rains on x day}}{}\\
+      \proofstep{\text{Let R(x)} = \text{It snows on x day}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x) \lor R(x))}{Premise}\\
+      \proofstep{P(\text{Tuesday}) \lor P(\text{Thursday})}{Premise}\\
+      \proofstep{\lnot Q(\text{Tuesday}) \land \lnot R(\text{Tuesday})}{Premise}\\
+      \proofstep{\lnot R(\text{Thursday})}{Premise}\\
+      \proofstep{P(\text{Tuesday}) \to Q(\text{Tuesday}) \lor R(\text{Tuesday})}{Universal instantiation on (4)}\\
+      \proofstep{P(\text{Thursday}) \to Q(\text{Thursday}) \lor R(\text{Thursday})}{Universal instantiation on (4)}\\
+      \proofstep{P(\text{Thursday}) \to Q(\text{Thursday})}{Dysjunctive syllogism on (7) and (9)}\\
+      \proofstep{\lnot P(\text{Tuesday}) }{Modus tollens on (6) and (8)}\\
+      \proofstep{P(\text{Thursday}) }{Dysjunctive syllogism on (5) and (11)}\\
+      \proofstep{Q(\text{Thursday}) \lor R(\text{Thursday}) }{Modus ponens on (9) and (12)}\\
+      \proofstep{Q(\text{Thursday})) }{Dysjunctive syllogism on (7) and (13)}
+    }{
+      Conclusions: "I took Thursday off.", "I did not take Tuesday off.", "It rained on Thursday."
+    }
+    \end{twocolproof}
+    \pagebreak
+    \begin{twocolproof}{b}{"If I eat spicy foods, then I have strange dreams." "I have strange dreams if there is thunder while I sleep." "I did not have strange dreams."}{
+      \proofstep{\text{Let p} = \text{I eat spicy foods}}{}\\
+      \proofstep{\text{Let q} = \text{I have strange dreams}}{}\\
+      \proofstep{\text{Let r} = \text{There is thunder when I sleep}}{}\\
+      \proofstep{p \to q}{Premise}\\
+      \proofstep{r \to q}{Premise}\\
+      \proofstep{\lnot q}{Premise}\\
+      \proofstep{\lnot p}{Modus tollens on (6) and (8)}\\
+      \proofstep{\lnot r}{Modus tollens on (r) and (8)}
+    }{
+      Conclusions: "I did not eat spicy food" and  "There was no thunder when I slept"
+    }
+    \end{twocolproof}
+    \begin{twocolproof}{c}{"I am either clever or lucky." "I am not lucky." "If I am lucky, then I will win the lottery."}{
+      \proofstep{\text{Let p} = \text{I am clever}}{}\\
+      \proofstep{\text{Let q} = \text{I am lucky}}{}\\
+      \proofstep{\text{Let r} = \text{I will win the lottery}}{}\\
+      \proofstep{p \lor q}{Premise}\\
+      \proofstep{\lnot q}{Premise}\\
+      \proofstep{q \to r}{Premise}\\
+      \proofstep{p}{Dysjunctive syllogism on (3) and (4)}
+    }{
+      Conclusion: "I am clever."
+    }
+    \end{twocolproof}
+    \begin{twocolproof}{d}{"Every computer science major has a personal computer." "Ralph does not have a personal computer." "Ann has a personal computer."}{
+      \proofstep{\text{Let P(x)} = \text{x is a computer science major}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x has a personal computer}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{\lnot Q(\text{Ralph})}{Premise}\\
+      \proofstep{Q(\text{Ann})}{Premise}\\
+      \proofstep{P(\text{Ralph}) \to Q(\text{Ralph})}{Universal instantiation on (3)}\\
+      \proofstep{\lnot P(\text{Ralph})}{Modus tollens on (4) and (6)}
+    }{
+      Conclusion: "Ralph is not a computer science major"
+    }
+    \end{twocolproof}
+    \pagebreak
+    \begin{twocolproof}{e}{"What is good for corporations is good for the United States." "What is good for the United States is good for you." "What is good for corporations is for you to buy lots of stuff."}{
+      \proofstep{\text{Let p} = \text{Good for corporations}}{}\\
+      \proofstep{\text{Let q} = \text{Good for the United States}}{}\\
+      \proofstep{\text{Let r} = \text{Good for you}}{}\\
+      \proofstep{\text{Let s} = \text{Buying lots of stuff}}{}\\
+      \proofstep{p \to q}{Premise}\\
+      \proofstep{q \to r}{Premise}\\
+      \proofstep{s \to p}{Premise}\\
+      \proofstep{p \to r}{Hypothetical syllogism on (5) and (6)}\\
+      \proofstep{s \to r}{Hypothetical syllogism on (7) and (8)}
+    }{
+      Conclusions: "What is good for corporations is good for you" and "Buying lots of stuff is good for you"
+    }
+    \end{twocolproof}
+    \begin{twocolproof}{f}{"All rodents gnaw their food."  "Mice are rodents." "Rabbits do not gnaw their food." "Bats are not rodents."}{
+      \proofstep{\text{Let P(x)} = \text{x is a rodent}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x gnaws their food}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{P(\text{Mice})}{Premise}\\
+      \proofstep{\lnot Q(\text{Rabbit})}{Premise}\\
+      \proofstep{\lnot P(\text{Bats})}{Premise}\\
+      \proofstep{P(\text{Mice}) \to Q(\text{Mice})}{Universal instantiation on (3)}\\
+      \proofstep{Q(\text{Mice})}{Modus ponens on (4) and (7)}\\
+      \proofstep{P(\text{Rabits}) \to Q(\text{Rabits})}{Universal instantiation on (3)}\\
+      \proofstep{\lnot P(\text{Rabits})}{Modus tollens on (5) and (9)}
+    }{
+      Conclusions: "Mice gnaw their food" and "Rabbits are not rodents"
+    }
+    \end{twocolproof}
+  }
+  \end{nestedproblem}
+  \begin{nestedproblem}{15}{For each of these arguments determine whether the argument is correct or incorrect and explain why.}{
+    \begin{twocolproof}{a}{All students in this class understand logic. Xavier is a student in this class. Therefore, Xavier understands logic.}{
+      \proofstep{\text{Let P(x)} = \text{x is a student in this class}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x understands logic}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{P(\text{Xavier}) \to Q(\text{Xavier})}{Universal instantiation on (3)}
+    }{
+      (4) says that Xavier understands logic so the argument is correct
+    }
+    \end{twocolproof}
+    \pagebreak
+    \begin{twocolproof}{b}{Every computer science major takes discrete mathematics. Natasha is taking  discrete mathematics. Therefore, Natasha is a computer science major.}{
+      \proofstep{\text{Let P(x)} = \text{x is a computer science major}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x takes discrete mathematics}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{Q(\text{Natasha})}{Premise}\\
+      \proofstep{P(\text{Natasha}) \to Q(\text{Natasha})}{Universal instantiation on (3)}
+    }{
+      There is no rule of inference that allows us to conclude $P(\text{Natasha})$ from $Q(\text{Natasha})$
+    }
+    \end{twocolproof}
+    \begin{twocolproof}{c}{All parrots like fruit. My pet bird is not a parrot. Therefore, my pet bird does not like fruit.}{
+      \proofstep{\text{Let P(x)} = \text{x is parrot}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x likes fruit}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{\lnot P(\text{My bird})}{Premise}\\
+      \proofstep{P(\text{My bird}) \to Q(\text{My bird})}{Universal instantiation on (3)}
+    }{
+      There is no rule of inference that allows us to conclude $\lnot Q(\text{My Bird})$ from $\lnot P(\text{My bird})$
+    }
+    \end{twocolproof}
+    \begin{twocolproof}{d}{Everyone who eats granola every day is healthy. Linda is not healthy. Therefore, Linda does not eat granola every day}{
+      \proofstep{\text{Let P(x)} = \text{x eats granola every day}}{}\\
+      \proofstep{\text{Let Q(x)} = \text{x is healthy}}{}\\
+      \proofstep{\forall x (P(x) \to Q(x))}{Premise}\\
+      \proofstep{\lnot Q(\text{Linda})}{Premise}\\
+      \proofstep{P(\text{Linda}) \to Q(\text{Linda})}{Universal instantiation on (3)}\\
+      \proofstep{\lnot P(\text{Linda})}{Modus tollens on (4) and (5)}
+    }{
+      (6) says that Linda does not eat granola so the argument is correct
+    }
+    \end{twocolproof}
+  }
+  \end{nestedproblem}
+  \begin{problem}{18}{What is wrong with this argument? Let $S(x, y)$ be "x is shorter than y." Given the premise  $\exists sS(s,Max)$, it follows that $S(Max, Max)$. Then by existential generalization it follows that $\exists xS(x, x)$, so that someone is shorter than himself.}{
+    The premise of this argument states that there exists some x that is shorter than Max. Existential generalization implies that there exists a c such that P(c) is true which allows us to conclude that there exists an x that satisfies P(x). Given $\exists sS(s,Max)$, we can assume that there exists an s that is shorter than Max. However, we cannot assume that a possible s is Max. Therefore the assertion that $\exists xS(x, x)$ is invalid.
+  }
+  \end{problem}
+  \pagebreak
+  \begin{twocolproof}{23}{Identify the error or errors in this argument that supposedly shows that if $\exists xP(x)\land \exists xQ(x)$ is true then $\exists x(P(x)\land Q(x))$ is true.}{
+    \proofstep{\exists xP(x) \lor \exists xQ(x)}{Premise}\\
+    \proofstep{\exists xP(x)}{Simplification from (1)}\\
+    \proofstep{P(c)}{Existential instantiation from (2)}\\
+    \proofstep{\exists xQ(x)}{Simplification from (1)}\\
+    \proofstep{Q(c)}{Existential instantiation from (4)}\\
+    \proofstep{P(c) \land Q(c)}{Conjunction from (3) and (5)}\\
+    \proofstep{\exists xP(x)\land \exists xQ(x)}{Existential generalization}
+  }{
+    First, the $\lor$ in (1) should be a $\land$. However, if we assume for the sake of argument that this is an error in the textbook, then the error would be in (5) because the x that satisfies P(x) might not be the same x that satisfies Q(x).
+  }
+  \end{twocolproof}
+  \begin{twocolproof}{29}{Use rules of inference to show that if $\forall x(P(x)\lor Q(x))$, $\forall x(\lnot Q(x)\lor S(x))$, $\forall x(R(x) \to \lnot S(x))$, and $\exists x\lnot P(x)$ are true, then $\exists x\lnot R(x)$ is true.}{
+    \proofstep{\forall x(P(x)\lor Q(x))}{Premise}\\
+    \proofstep{\forall x(\lnot Q(x)\lor S(x))}{Premise}\\
+    \proofstep{\forall x(R(x) \to \lnot S(x))}{Premise}\\
+    \proofstep{\exists x\lnot P(x)}{Premise}\\
+    \proofstep{\lnot P(c)}{Existential instantiation on (4)}\\
+    \proofstep{P(c) \lor Q(c)}{Universal instantiation on (1)}\\
+    \proofstep{Q(c)}{Dysjunctive syllogism on (6)}\\
+    \proofstep{\lnot Q(c)\lor S(c)}{Universal instantiation on (2)}\\
+    \proofstep{S(c)}{Dysjunctive syllogism on (8)}
+  }{
+    First, the $\lor$ in (1) should be a $\land$. However, if we assume for the sake of argument that this is an error in the textbook, then the error would be in (5) because the x that satisfies P(x) might not be the same x that satisfies Q(x).
+  }
+  \end{twocolproof}
+  \begin{twocolproof}{33}{Use resolution to show that the compound proposition $(p \lor q) \land (\lnot p \lor q) \land (p \lor \lnot q) \land (\lnot p \lor \lnot q)$ is not satisfiable.}{
+    \proofstep{p \lor q}{Premise}\\
+    \proofstep{\lnot p \lor q}{Premise}\\
+    \proofstep{p \lor \lnot q}{Premise}\\
+    \proofstep{\lnot p \lor \lnot q}{Premise}\\
+    \proofstep{q \lor q}{Resolution on (1) and (2)}\\
+    \proofstep{\lnot q \lor \lnot q}{Resolution on (3) and (4)}
+  }{
+    This proposition is not satisfiable because $q \lor q$ implies q has to be true and $\lnot q \lor \lnot q$ implies q has to be false
+  }
+  \end{twocolproof}
+\end{document}

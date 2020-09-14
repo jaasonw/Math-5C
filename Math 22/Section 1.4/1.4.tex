@@ -1,0 +1,403 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, array, fancyhdr, enumerate, enumitem}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.4 Predicates and Quantifiers}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\lnot\neg
+\let\xor\oplus
+
+
+
+% draws a black square for proofs
+\newcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\proofstep}[2]{#1 && \text{#2}\\}
+
+% args: (number, question, steps, explanation)
+\newenvironment{twocolproof}[4]{
+    \begin{enumerate}
+        \item[\bfseries{#1}] #2
+        \begin{align*}
+            #3
+        \end{align*}
+        #4
+    \end{enumerate}
+}
+
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] \solution{#3}
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+\begin{nestedproblem}{3} {Let Q(x, y) denote the statement "x is the capital of y." What are these truth values?}{
+    \problem{a} { Q(Denver, Colorado) } {
+      Denver is the capital of Colorado: true
+    }
+    \problem{b} { Q(Detroit, Michigan) } {
+      Detroit is the capital of Michigan: false
+    }
+    \problem{c} { Q(Massachusetts, Boston) } {
+      Massachusetts is the capital of Boston: false
+    }
+    \problem{d} { Q(New York, New York) } {
+      New York is the capital of New York: false
+    }
+  }
+\end{nestedproblem}
+\begin{nestedproblem}{4} {State the value of x fter the statement if P(x) then x := 1 is executed, where P(x) is the statement "x > 1", if the value of x when this statement is reached is}{
+    \problem{a} { $x=0$ } { $0 \not > 1,\ \therefore x = 0$ }
+    \problem{b} { $x=1$ } { $1 \not > 1,\ \therefore x = 1$ }
+    \problem{c} { $x=2$ } { $2 > 1,\ \therefore x = 1$ }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{13} {Determine the truth value of each of these statements if the domain consists of all integers.}{
+    \problem{a} { $\forall n(n+1>n)$ } { True }
+    \problem{b} { $\exists n(2n=3n)$ } { True, when $n = 0$, $2n = 3n = 0$ }
+    \problem{c} { $\exists n(n=-n)$ } { True, when $n = 0$, $n = -n = 0$ }
+    \problem{d} { $\forall n(3n \le 4n)$ } { False for $n < 0$ }
+  }
+\end{nestedproblem}
+\begin{nestedproblem}{14} {Determine the truth value of each of these statements if the domain of each variable consists of all real numbers.}{
+    \problem{a} { $\exists x(x^2=2)$ } { True for $x = \sqrt{2}$ }
+    \problem{b} { $\exists x(x^2=-1)$ } { False, only true for $i$ }
+    \problem{c} { $\forall x(x^2+2 \ge 1)$ } { False, only true for $i$ }
+    \problem{d} { $\forall x(x^2=x)$ } { False, only true for 0 and 1 }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{19} {Suppose that the domain of the propositional function P(x) consists of the integers 1, 2, 3, 4, and 5. Express these statements without using quantifiers, instead using only negations, disjunctions, and conjunctions.}{
+    \problem{a} { $\exists xP(x)$ } { $P(1) \lor P(2) \lor P(3) \lor P(4) \lor P(5)$ }
+    \problem{b} { $\forall xP(x)$ } { $P(1) \land P(2) \land P(3) \land P(4) \land P(5)$ }
+    \problem{c} { $\lnot \exists xP(x)$ } { $\lnot(P(1) \lor P(2) \lor P(3) \lor P(4) \lor P(5))$ }
+    \problem{d} { $\lnot \forall xP(x)$ } { $\lnot(P(1) \land P(2) \land P(3) \land P(4) \land P(5))$ }
+    \problem{e} { $\forall x((x \neq 3) \to P(x)) \lor \exists x \lnot P(x)$ } { 
+      $P(1) \land P(2) \land P(4) \land P(5) \lor (\lnot(P(1) \lor P(2) \lor P(4) \lor P(5)))$
+    }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{23} {Translate in two ways each of these statements into logical expressions using predicates, quantifiers, and logical connectives. First, let the domain consist of the students in your class and second, let it consist of all people, Where S(x) = x is in your class}{
+    \problem{a} { Someone in your class can speak Hindi. } { 
+      Domain: Students in your class\\
+      Let H(x) = x can speak Hindi\\
+      $\exists xH(x)$\\
+      Domain: All people\\
+      $\exists x(H(x) \land S(x))$\\
+    }
+    \problem{b} { Everyone in your class is friendly. } { 
+      Domain: Students in your class\\
+      Let F(x) = x is friendly\\
+      $\forall xF(x)$\\
+      Domain: All people\\
+      $\forall x(F(x) \land S(x))$\\
+    }
+    \problem{c} { There is a person in your class who was not born in California. } { 
+      Domain: Students in your class\\
+      Let C(x) = x is born in California\\
+      $\exists x \lnot C(x)$\\
+      Domain: All people\\
+      $\exists x (S(x) \land \lnot (C(x)))$\\
+    }
+    \problem{d} { A student in your class has been in a movie. } { 
+      Domain: Students in your class\\
+      Let M(x) = x has been in a movie\\
+      $\exists xM(x)$\\
+      Domain: All people\\
+      $\exists x(M(x) \land S(x))$\\
+    }
+    \problem{e} { No student in your class has taken a course in logic programming. } { 
+      Domain: Students in your class\\
+      Let L(x) = x has taken a course in logic programming\\
+      $\lnot \forall x L(x)$\\
+      Domain: All people\\
+      $\lnot \forall x (L(x)  \land S(x))$\\
+    }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{27} {Translate each of these statements into logical expressions in three different ways by varying the domain and by using predicates with one and with two variables.}{
+    \begin{nestedproblem}{a} {A student in your school has lived in Vietnam.}{
+        \problem{} { Domain: Students in your school } {
+          Let V(x) = x has lived in Vietnam\\
+          $\exists x V(x)$
+        }
+        \problem{} { Domain: All people } {
+          Let S(x) = x goes to your school\\
+          Let V(x) = x has lived in Vietnam\\
+          $\exists x (V(x) \land S(x))$
+        }
+        \problem{} { Domain: All people } {
+          Let S(x, y) = x goes to y\\
+          Let V(x, z) = x has lived in z\\
+          $\exists x (V(x, Vietnam) \land S(x, your\ school ))$
+        }
+      }
+    \end{nestedproblem}
+    \begin{nestedproblem}{b} { There is a student in your school who cannot speak Hindi. }{
+        \problem{} { Domain: Students in your school } {
+          Let H(x) = x can speak Hindi\\
+          $\exists x \lnot H(x)$
+        }
+        \problem{} { Domain: All people } {
+          Let S(x) = x goes to your school\\
+          Let H(x) = x can speak Hindi\\
+          $\exists x (\lnot H(x) \land S(x))$
+        }
+        \problem{} { Domain: All people } {
+          Let S(x, y) = x goes to y\\
+          Let H(x, z) = x can speak z\\
+          $\exists x (\lnot H(x, Hindi) \land S(x, your\ school ))$
+        }
+      }
+    \end{nestedproblem}
+    \pagebreak
+    \begin{nestedproblem}{c} { A student in your school knows Java, Prolog, and C++. }{
+        \problem{} { Domain: Students in your school } {\\
+          Let J(x) = x knows Java\\
+          Let P(x) = x knows Prolog\\
+          Let C(x) = x knows C++\\
+          $\exists x (J(x) \land P(x) \land C(x))$
+        }
+        \problem{} { Domain: Students in your school } {
+          Let L(w, x, y, z) = w knows x, y, and z\\
+          $\exists w L(w, Java, Prolog, C++)$
+        }
+        \problem{} { Domain: All people } {\\
+          Let S(x) = x goes to your school\\
+          Let J(x) = x knows Java\\
+          Let P(x) = x knows Prolog\\
+          Let C(x) = x knows C++\\
+          $\exists x (S(x) \land J(x) \land P(x) \land C(x))$
+        }
+      }
+    \end{nestedproblem}
+    \begin{nestedproblem}{d} { Everyone in your class enjoys Thai food }{
+      \problem{} { Domain: Students in your class } {
+        Let T(x) = x enjoys Thai food\\
+        $\forall x T(x)$
+      }
+      \problem{} { Domain: All people } {
+        Let S(x) = x goes to your class\\
+        Let T(x) = x enjoys Thai food\\
+        $\forall x (T(x) \land S(x))$
+      }
+      \problem{} { Domain: Students in your class } {
+        Let F(x, y) = x enjoys y food\\
+        $\forall x F(x, Thai)$
+      }
+    }
+    \end{nestedproblem}
+    \pagebreak
+    \begin{nestedproblem}{e} { Someone in your class does not play hockey }{
+      \problem{} { Domain: Students in your class } {
+        Let H(x) = x plays hockey\\
+        $\exists x \lnot T(x)$
+      }
+      \problem{} { Domain: All people } {
+        Let S(x) = x goes to your class\\
+        Let H(x) = x plays hockey\\
+        $\exists x (\lnot H(x) \land S(x))$
+      }
+      \problem{} { Domain: Students in your class } {
+        Let H(x, y) = x plays y\\
+        $\exists x \lnot H(x, hockey)$
+      }
+    }
+    \end{nestedproblem}
+  }
+\end{nestedproblem}
+\begin{nestedproblem}{30} {Suppose the domain of the propositional function P(x, y) consists of pairs x and y, where x is 1, 2, or 3 and y is 1, 2, or 3. Write out these propositions using disjunctions and conjunctions.}{
+    \problem{a} { $\exists x P(x,3)$ } { $P(1, 3) \lor P(2, 3) \lor P(3, 3)$ }
+    \problem{b} { $\forall y P(1,y)$ } { $P(1, 1) \land P(1, 2) \land P(1, 3)$ }
+    \problem{c} { $\exists y \lnot P(2,y)$ } { $\lnot P(2, 1) \land \lnot P(1, 2) \land \lnot P(1, 3)$ }
+    \problem{d} { $\forall x \lnot P(x,2)$ } { $\lnot P(1, 2) \lor \lnot P(2, 2) \lor \lnot P(3, 2)$ }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{33} {Express each of these statements using quantifiers. Then form the negation of the statement, so that no negation is to the left of a quantifier. Next, express the negation in simple English. (Do not simply use the phrase "It is not the case that.")}{
+    \problem{a} { Some old dogs can learn new tricks } {
+      Domain: All old dogs\\
+      Let t(x) = x can learn new tricks\\
+      $\exists x t(x)$\\
+      Negation: $\forall x \lnot t(x)$\\
+      "No old dogs can learn new tricks"
+    }
+    \problem{b} { No rabbit knows calculus } {
+      Domain: All rabits\\
+      Let c(x) = x knows calculus\\
+      $\forall x \lnot c(x)$\\
+      Negation: $\exists x c(x)$\\
+      "There exists a rabit that knows calculus"
+    }
+    \problem{c} { Every bird can fly. } {
+      Domain: All birds\\
+      Let f(x) = x can fly\\
+      $\forall x f(x)$\\
+      Negation: $\exists x \lnot f(x)$\\
+      "Some birds cannot fly"
+    }
+    \problem{d} { There is no dog that can talk. } {
+      Domain: All dogs\\
+      Let t(x) = x can fly\\
+      $\forall x \lnot t(x)$\\
+      Negation: $\exists x t(x)$\\
+      "There exists a dog that can talk"
+    }
+    \problem{d} { There is no one in this class who knows French and Russian. } {
+      Domain: All people in this class\\
+      Let f(x) = x knows French\\
+      Let r(x) = x knows Russian\\
+      $\forall x \lnot (f(x) \land r(x))$\\
+      Negation: $\exists x (f(x) \lor r(x))$\\
+      "Someone in this class knows French or Russian"
+    }
+  }
+\end{nestedproblem}
+\pagebreak
+\begin{nestedproblem}{36} {Find a counterexample, if possible, to these universally quantified statements, where the domain for all variables consists of all real numbers.}{
+    \problem{a} { $\forall x(x^2 \ne x)$ } {
+      0 or 1
+    }
+    \problem{b} { $\forall x(x^2 \ne 2)$ } {
+      Anything except for $\sqrt 2$
+    }
+    \problem{c} { $\forall x(|x|>0)$ } {
+      0
+    }
+  }
+\end{nestedproblem}
+\begin{nestedproblem}{39} {Translate these specifications into English where F(p) is "Printer p is out of service," B(p) is "Printer p is busy," L(j) is "Print job j is lost," and Q(j) is "Print job j is queued."}{
+    \problem{a} { $\exists p(F (p) \land B(p)) \to \exists j L(j)$ } {
+      If there is a printer that is out of service and busy then there is a job that is lost
+    }
+    \problem{b} { $\forall p B(p) \to \exists j Q(j)$ } {
+      If all printers are busy then there is a job in the queue
+    }
+    \problem{c} { $\exists j (Q(j) \land L(j)) \to \exists p F(p)$ } {
+      If a job is queued and lost then a printer is out of service
+    }
+    \problem{d} { $(\forall p B(p) \land \forall j Q(j)) \to \exists j L(j)$ } {
+      If all printers are busy and all jobs are queued then there exists a job that was lost
+    }
+  }
+\end{nestedproblem}
+\problem{44} { Determine whether $\forall x(P(x) \iff Q(x))$ and $\forall x P(x) \iff \forall xQ(x)$ are logically equivalent. Justify your answer. } {
+  These statements are logically equivalent because they use the same x for all x's for both P(x) and Q(x).
+}
+\problem{45} {Show that $\exists x(P(x) \lor Q(x))$ and $\exists xP(x) \lor \exists xQ(x)$ are logically equivalent. } {
+  Both statements are true for any x where P(x) is true or any x where Q(x) is true
+}
+\problem{51} {Show that $\exists xP(x) \land \exists xQ(x)$ and $\exists x(P(x) \land Q(x))$ are not logically equivalent.} {
+  The first statement says that there exists an x that satisfies P(x) and an x that satisfies Q(x). The second statement states that there exists an x that satisfies both P(x) and Q(x).
+}
+\begin{nestedproblem}{61} {Let $P(x), Q(x), R(x)$, and $S(x)$ be the statements "x is a baby," "x is logical," "x is able to manage a crocodile," and "x is despised," respectively. Suppose that the domain consists of all people. Express each of these statements using quantifiers; logical connectives; and $P(x), Q(x), R(x)$, and $S(x)$.}{
+  \problem{a} { Babies are illogical. } {
+    $\forall x (P(x) \to Q(x))$
+  }
+  \problem{b} { Nobody is despised who can manage a crocodile. } {
+    $\forall x \lnot (R(x) \land S(x))$
+  }
+  \problem{c} { Illogical persons are despised. } {
+    $\forall Q(x) \to S(x)$
+  }
+  \problem{d} { Babies cannot manage crocodiles. } {
+    $\forall P(x) \to \lnot R(x)$
+  }
+}
+\end{nestedproblem}
+\begin{nestedproblem}{62} {Let $P(x),Q(x),R(x)$, and $S(x)$ be the statements "x is a duck," "x is one of my poultry," "x is an officer," and "x is willing to waltz," respectively. Express each ofthese statements using quantifiers; logical connectives; and $P(x),Q(x),R(x)$, and $S(x)$.}{
+  \problem{a} { No ducks are willing to waltz. } {
+    $\forall x (P(x) \to \lnot S(x))$
+  }
+  \problem{b} { No officers ever decline to waltz. } {
+    $\forall x (R(x) \land S(x))$
+  }
+  \problem{c} { All my poultry are ducks. } {
+    $\forall Q(x) \land R(x)$
+  }
+  \problem{d} { My poultry are not officers. } {
+    $\forall Q(x) \to \lnot R(x)$
+  }
+  \problem{e} { Does (d) follow from (a), (b), and (c)? If not, is there a correct conclusion? } {
+    No, the correct conclusion is "All my poultry are not willing to waltz"
+  }
+}
+\end{nestedproblem}
+% \pagebreak
+% \begin{nestedproblem}{AAAAAAA} {GROUP WORK THING REMOVE LATER}{
+%     \problem{a} { You can fool some people all of the time } {
+%       \\
+%       Domain: All people\\
+%       Let F(x) = x can be fooled all the time\\
+%       $\exists xF(x)$
+%     }
+%     \problem{b} { You can fool everyone some of the time } {
+%       \\
+%       Domain: All people\\
+%       Let F(x) = x can be fooled\\
+%       $\forall x(F(x))$
+%     }
+%     \problem{c} { You can always fool some people } {
+%       \\
+%       Domain: All people\\
+%       Let F(x) = x can always be fooled\\
+%       $\exists xF(x)$
+%     }
+%     \problem{d} { Sometimes you can fool everyone } {
+%       \\
+%       Domain of x: All people\\
+%       Domain of t: All times\\
+%       Let F(x) = x can be fooled\\
+%       $\exists t \forall x(F(x))$
+%     }
+%   }
+% \end{nestedproblem}
+
+
+\end{document}
