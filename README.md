@@ -1,2 +1,2 @@
-# Math-5C
-This repository just contains my LaTeX test corrections for my multivariable calculus class at Pasadena City College.
+# Math
+This repository contains my math homework from Pasadena City College
