@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, bm, fancyhdr, graphicx}
+\usepackage[margin = 1in]{geometry}
+\graphicspath{ {./img/} }
+
+\def\class{MATH 5C}
+\def\header{EXAM 1 CORRECTIONS}
+\def\first{JASON}
+\def\last{WONG}
+
+\fancypagestyle{useheader}
+{
+    \fancyhf{}
+    \setlength{\headsep}{\baselineskip}
+    \lhead{\class}
+    \chead{\header}
+    \rhead{\last, \first}
+    \cfoot{\thepage}
+}
+
+
+\newcommand{\qed}{\hfill$\blacksquare$}
+\newenvironment{problem}[1]{
+    \begin{enumerate}
+        \item[\bfseries{#1}]
+}
+{
+    \end{enumerate}
+}
+
+\begin{document}
+\pagestyle{useheader}
+
+\begin{problem}{1}
+    Reparametrize the curve $\vec{r}(t) = (4\cos t)\vec{i} + (4\sin t) \vec{j} + 3t\vec{k}$ with respect to the arc length measured from $(4,0,0)$ in the direction of increasing t.
+    \begin{align*}
+        \vec{r}(0) &= \langle4\cos 0, 4\sin 0, 3(0) \rangle = \langle 4, 0, 0 \rangle && \text{Let t = 0} \\
+        \vec{r}\ '(t) &= \langle -4\sin t, 4 \cos t, 3\rangle && \text{Derivative of $\vec{r}(t)$}\\
+        s(t) &= \int_{{\,a}}^{{\,b}}{{\sqrt {{{\left[ {f'\left( t \right)} \right]}^2} + {{\left[ {g'\left( t \right)} \right]}^2} + {{\left[ {h'\left( t \right)} \right]}^2}} \,dt}} && \text{Arc length formula} \\
+        s(t) &= \int_{0}^{t}{\sqrt{(-4\sin t)^2 + (4\cos t)^2 + 3^2}} dt && \text{Substitute the components of $\vec{r}\ '(t)$} \\
+        s(t) &= \int_0^t{\sqrt{25}}dt && \text{Evaluate the integral} \\
+        s(t) &= \left.\sqrt{25}\right\vert_0^t \\
+        s(t) &= \sqrt{25}(t-0) \\
+        t(s) &= \frac{s}{5} && \text{t in terms of arc length} \\
+        \vec{r}(t(s)) &= 4\cos \frac{s}{5}\vec{i} + 4\sin{\frac{s}{5}}\vec{j} + \frac{3s}{5}\vec{k} && \text{Curve reparametrized in terms of arc length}
+    \end{align*}
+\end{problem}
+\newpage
+\begin{problem}{2c}
+    Given the plane curve $\vec{r}(t) = \langle t-2, t^2 - 1 \rangle$\\
+    Sketch the position vector $\vec r (t)$ and the tangent vector $\vec r \ '(t)$ at $t = 1$
+    \begin{align*}
+        &\begin{matrix}
+            t & x & y \\
+            0 & -2 & -1 \\
+            1 & -1 & 0 \\
+            2 & 0 & 3 \\
+            3 & 1 & 8 \\
+            4 & 2 & 15 \\
+            5 & 3 & 24 \\
+        \end{matrix} && \text{Table of values}\\
+        &\includegraphics[scale=0.3]{{graph_no_vector.png}} && \text{Graph of $\vec r (t)$}\\
+        &\vec r \ '(t) = \langle 1, 2t \rangle && \text{Take the derivative of $\vec r (t)$}\\
+        &\vec r \ '(1) = \langle 1, 2 \rangle && \text{Substitute $t = 1$}\\
+        &\includegraphics[scale=0.3]{{graph_with_vector.png}} && \text{Graph $\vec r \ '(1)$ at $t = 1$}
+    \end{align*}
+\end{problem}
+\newpage
+\begin{problem}{3a}
+    Given $9y^2 + 4z^2 = x^2 + 36$\\
+    \textbf{a. Rewrite the equation in standard form}
+    \begin{align*}
+        9y^2 + 4z^2 = x^2 &+ 36 && \text{Original equation}\\
+        9y^2 + 4z^2 - x^2 &= 36 && \text{Subtract $x^2$ on both sides}\\
+        \frac{y^2}{4} + \frac{z^2}{9} - \frac{x^2}{36} &= 1 && \text{Divide by 36 on both sides}\\
+        -\frac{x^2}{36} + \frac{y^2}{4} + \frac{z^2}{9} &= 1 && \text{Rearrange terms}\\
+        -\frac{x^2}{6^2} + \frac{y^2}{2^2} + \frac{z^2}{3^2} &= 1 && \text{Rewrite denominators}
+    \end{align*}
+    \textbf{b. Identify the surface}
+    \begin{align*}
+        \frac{x^2}{a^2}+\frac{y^2}{b^2} -\frac{z^2}{c^2} &= 1 && \text{Standard form of a hyperboloid of 1 sheet}\\
+        -\frac{x^2}{6^2} + \frac{y^2}{2^2} + \frac{z^2}{3^2} &= 1 && \text{Equation matches the form}\\
+    \end{align*}
+    \begin{center}
+        Hyperboloid of 1 sheet
+    \end{center}
+    \textbf{c. Draw each trace for the coordinate planes and describe the conic section. Label and scale your axes.}
+    \begin{align*}
+        &\includegraphics[scale=0.2]{{xy_hyperbola.png}} && \text{xy axis, Let $z = 0$, Hyperbola}\\
+        &\includegraphics[scale=0.2]{{xz_hyperbola.png}} && \text{xz axis, Let $y = 0$, Hyperbola}\\
+        &\includegraphics[scale=0.2]{{yz_ellipse.png}} && \text{yz axis, Let $x = 0$, Ellipse}
+    \end{align*}
+    \newpage
+    \textbf{d. Graph $\bm{9y^2 + 4z^2 = x^2 + 36}$. Label and scale the axes.}\\
+    \includegraphics[scale=0.5]{{hyperboloid.png}}
+\end{problem}
+\newpage
+\begin{problem}{4}
+    Given $\vec{a}, \vec{b} \in \mathbb{R}^3$, show that $\vec{a} \times \vec{b}$ is orthogonal to $\vec{a}$ and $\vec{b}$.
+    \begin{align*}
+        \vec{a} \cdot \vec{b} &= |\vec{a}| |\vec{b}| \cos(\theta) && \text{Angle between 2 vectors}\\
+        \vec{a} \cdot \vec{b} &= |\vec{a}| |\vec{b}| \cos(\frac{\pi}{2}) && \text{Let $\theta = \frac{\pi}{2}$}\\
+        \vec{a} \cdot \vec{b} &= |\vec{a}| |\vec{b}| * 0\\
+        \vec{a} \cdot \vec{b} &= 0 && \text{$\therefore$ When $\theta = \frac{\pi}{2}$,}\\
+        &&&\text{the dot product is equal to 0}\\
+        Let\ \vec{a} &= \left\langle a_1, a_2, a_3 \right\rangle && \text{Given}\\
+        Let\ \vec{b} &= \left\langle b_1, b_2, b_3 \right\rangle\\
+        \vec{a} \times \vec{b} &= \left| {\begin{array}{*{20}{c}}{\vec i}&{\vec j}&{\vec k}\\{a_1}&{a_2}&{a_3}\\{b_1}&{b_2}&{b_3}\end{array}} \right| && \text{Take the cross product}\\
+        \vec{a} \times \vec{b} &= \left| {\begin{array}{*{20}{c}}{a_2}&{a_3}\\{b_2}&{b_3}\end{array}} \right|\vec i - \left| {\begin{array}{*{20}{c}}{a_1}&{a_3}\\{b_1}&{b_3}\end{array}} \right|\vec j + \left| {\begin{array}{*{20}{c}}{a_1}&{a_2}\\{b_1}&{b_2}\end{array}} \right|\vec k\\
+        \vec{a} \times \vec{b} &= \left\langle a_2b_3 - a_3b_2, -a_1b_3 + a_3b_1, a_1b_2 - a_2b_1 \right\rangle\\
+        \left\langle a_1, a_2, a_3 \right\rangle &\cdot\left\langle a_2b_3 - a_3b_2, -a_1b_3 + a_3b_1, a_1b_2 - a_2b_1 \right\rangle && \text{Take the dot product with $\vec a$}\\
+        &= a_1(a_2b_3 - a_3b_2) + a_2(-a_1b_3 + a_3b_1) + a_3(a_1b_2 - a_2b_1)\\
+        &= a_1a_2b_3 - a_1a_3b_2 -a_2a_1b_3 + a_2a_3b_1 + a_3a_1b_2 - a_3a_2b_1\\
+        &= (a_1a_2b_3 - a_1a_2b_3) + (a_1b_2a_3 - a_1b_2a_3) + (b_1a_2a_3 - b_1a_2a_3) && \text{Rearrange terms}\\
+        &= 0 && \text{$\therefore$ the angle between}\\
+        &&& \text{$\vec a$ and $\vec a \times \vec b = \frac{\pi}{2}$}\\
+        \left\langle a_1, a_2, a_3 \right\rangle &\cdot\left\langle a_2b_3 - a_3b_2, -a_1b_3 + a_3b_1, a_1b_2 - a_2b_1 \right\rangle && \text{Take the dot product with $\vec b$}\\
+        &= b_1(a_2b_3 - a_3b_2) + b_2(-a_1b_3 + a_3b_1) + b_3(a_1b_2 - a_2b_1)\\
+        &= b_1a_2b_3 - b_1a_3b_2 -b_2a_1b_3 + b_2a_3b_1 + b_3a_1b_2 - b_3a_2b_1\\
+        &= (b_1a_2b_3 - b_1a_2b_3) + (a_1b_2b_3 - a_1b_2b_3) + (b_1b_2a_3 - b_1b_2a_3) && \text{Rearrange terms}\\
+        &= 0 && \text{$\therefore$ the angle between}\\
+        &&& \text{$\vec b$ and $\vec a \times \vec b = \frac{\pi}{2}$}
+    \end{align*}
+    We know the angle between $\vec{a} \times \vec{b}$ and $\vec{a}$ is $\frac{\pi}{2}$ and the angle between $\vec{a} \times \vec{b}$ and $\vec{b}$ is $\frac{\pi}{2}$
+    
+    $\therefore$ $\vec{a} \times \vec{b}$ is orthogonal to $\vec{a}$ and $\vec{b}$\qed
+\end{problem}
+\newpage
+\begin{problem}{6e}
+    Given $\vec b = \langle 0, 4, 5\rangle$ and $\vec c = \langle -1, 3, -2\rangle$, find $proj_{\vec b}{\vec c}$.
+    \begin{align*}
+        proj_{\vec u}{\vec v} &= \left(\frac{\vec u \cdot \vec v}{\left|\vec u\right|}\right)\left(\frac{\vec u}{\left|\vec u\right|}\right) && \text{Vector projection of $\vec v$ onto $\vec u$}\\
+        proj_{\vec b}{\vec c} &= \left(\frac{\langle 0, 4, 5\rangle \cdot \langle -1, 3, -2\rangle}{\left|\langle 0, 4, 5\rangle\right|}\right) \left(\frac{\langle 0, 4, 5\rangle}{\left|\langle 0, 4, 5\rangle\right|}\right) && \text{Substitute}\\
+        \langle 0, 4, 5\rangle \cdot \langle -1, 3, -2\rangle &= 2 && \text{Dot Product of $\vec b$ and $\vec c$}\\
+        \sqrt{0^2 + 4^2 + 5^2} &= \sqrt{41} && \text{Magnitude of $\vec b$}\\
+        proj_{\vec b}{\vec c} &= \left(\frac{2}{\sqrt{41}}\right) \left(\frac{\langle 0, 4, 5\rangle}{\sqrt{41}}\right) && \text{Substitute}\\
+        proj_{\vec b}{\vec c} &= \left\langle 0, \frac{8}{41}, \frac{10}{41} \right\rangle && \text{Vector projection of $\vec c$ onto $\vec b$}\\
+    \end{align*}
+\end{problem}
+\newpage
+\begin{problem}{7}
+    Find the plane that goes through the points $\left(3, 0, -4\right)$, $\left(-2, -2, 5\right)$, and $\left(-1, 8, -3\right)$.
+    \begin{align*}
+        P &= \left(3, 0, -4\right) && \text{Define points}\\
+        Q &= \left(-2, -2, 5\right)\\
+        R &= \left(-1, 8, -3\right)\\\\
+        \overrightarrow{PQ} &= \left\langle -5, -2, 9 \right\rangle && \text{Vector through points}\\
+        \overrightarrow{PR} &= \left\langle -4, 8, 1 \right\rangle\\\\
+        \overrightarrow{PQ} \times \overrightarrow{PR} &= \left| {\begin{array}{*{20}{c}}{\vec i}&{\vec j}&{\vec k}\\{-5}&{-2}&{9}\\{-4}&{8}&{1}\end{array}} \right| && \text{Take the cross product}\\
+        \overrightarrow{PQ} \times \overrightarrow{PR} &= \left| {\begin{array}{*{20}{c}}{-2}&{9}\\{8}&{1}\end{array}} \right|\vec i - \left| {\begin{array}{*{20}{c}}{-5}&{9}\\{-4}&{1}\end{array}} \right|\vec j + \left| {\begin{array}{*{20}{c}}{-5}&{-2}\\{-4}&{8}\end{array}} \right|\vec k\\\\
+        \overrightarrow{PQ} \times \overrightarrow{PR} &= \langle -74, -31, -48 \rangle && \text{Normal vector}\\
+        P &= \left(3, 0, -4\right) && \text{Point on plane}\\\\
+        0 &= \vec{n}\cdot (r - r_0) && \text{Equation of a plane}\\
+        &&&\text{$\vec n$: the normal vector}\\
+        &&&\text{$r_0$: the point on the plane} \\\\
+        0 &= \langle -74, -31, -48 \rangle \cdot \left(\langle x, y, z\rangle - \langle 3,0,5 \right\rangle) && \text{Equation of the plane}\\
+        0 &= -74(x-3) - 31y - 48(z-4) && \text{Simplified to scalar notation}
+    \end{align*}
+\end{problem}
+\newpage
+\begin{problem}{8}
+    Find the curvature of $\vec r(t) = \langle 0, t^3, t^2\rangle$
+    \begin{align*}
+        \vec r\ '(t) &= \langle 0, 3t^2, 2t \rangle && \text{Derivative of $\vec r$}\\
+        \vec r\ ''(t) &= \langle 0, 6t, 2 \rangle && \text{2nd derivative of $\vec r$}\\
+        |\vec r\ '(t)| &= \sqrt{(0)^2 + (3t^2)^2 + (2t)^2} && \text{Magnitude of $\vec r \ '(t)$}\\
+        |\vec r\ '(t)| &= \sqrt{0 + 9t^4 + 4t^2} &&\\
+        |\vec r\ '(t)| &= \sqrt{t^2(9t^2 + 4)} &&\\
+        |\vec r\ '(t)| &= t\sqrt{9t^2 + 4} &&\\
+        \kappa(t) &= \frac{|\vec r\ '(t) \times \vec r \ ''(t)|}{|\vec r \ '(t)|^3} && \text{Curvature formula}\\
+        \kappa(t) &= \frac{|\langle 0, 3t^2, 2t \rangle \times \langle 0, 6t, 2 \rangle|}{\left(t\sqrt{9t^2 + 4}\right)^3} && \text{Evaluate curvature}\\
+        \langle 0, 3t^2, 2t \rangle \times \langle 0, 6t, 2 \rangle &= \left| {\begin{array}{*{20}{c}}{\vec i}&{\vec j}&{\vec k}\\{0}&{3t^2}&{2t}\\{0}&{6t}&{2}\end{array}} \right| && \text{Cross Product}\\
+        \langle 0, 3t^2, 2t \rangle \times \langle 0, 6t, 2 \rangle &= \left| {\begin{array}{*{20}{c}}{3t^2}&{2t}\\{6t}&{2}\end{array}} \right|\vec i - \left| {\begin{array}{*{20}{c}}{0}&{2t}\\{0}&{2}\end{array}} \right|\vec j + \left| {\begin{array}{*{20}{c}}{0}&{3t^2}\\{0}&{6t}\end{array}} \right|\vec k\\
+        \langle 0, 3t^2, 2t \rangle \times \langle 0, 6t, 2 \rangle &= \langle 6t^2 - 12t^2, 0, 0 \rangle\\
+        \left|\langle 6t^2 - 12t^2, 0, 0 \rangle\right| &= \sqrt{(6t^2 - 12t^2)^2} = \sqrt{\left(t^2(6 - 12)\right)^2} = \sqrt{\left(t^2(-6)\right)^2}&& \text{Magnitude}\\
+        \left|\langle 6t^2 - 12t^2, 0, 0 \rangle\right| &= 6t^2\\
+        \kappa(t) &= \frac{6t^2}{t^3(9t^2 + 4)^{\frac{3}{2}}}&&\text{Curvature of $\vec r(t)$}\\
+        \kappa(t) &= \frac{6}{t(9t^2 + 4)^{\frac{3}{2}}} && \text{Simplify}
+    \end{align*}
+\end{problem}
+\end{document}
