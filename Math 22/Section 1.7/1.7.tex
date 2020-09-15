@@ -1,0 +1,306 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, array, fancyhdr, enumerate, enumitem, stackengine}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.7 Introduction to Proofs}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\lnot\neg
+\let\xor\oplus
+
+
+
+% draws a black square for proofs
+\renewcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\proofstep}[2]{&#1 &&\ \  \text{#2}}
+
+% args: (number, question, steps, explanation)
+\newenvironment{twocolproof}[1]{
+    \begin{align}
+      #1
+    \end{align}
+    \setcounter{equation}{0}
+}
+% \newenvironment{twocolproof}[4]{
+%     \begin{enumerate}
+%         \item[\bfseries{#1}] #2
+%         \begin{align}
+%             #3
+%         \end{align}
+%         #4
+%     \end{enumerate}
+%     \setcounter{equation}{0}
+% }
+
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] #3
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+  \begin{problem}{1}{Use a direct proof to show that the sum of two odd integers is even.}{
+    \begin{proof}
+      Assume $a$ is even and $b$ is odd.
+      $$\text{Let }a = 2k, \text{ k is some integer}$$
+      $$\text{Let }b = 2k + 1, \text{ k is some integer}$$
+      \begin{twocolproof} {
+        \proofstep{b + b = n}{The sum of 2 odd integers}\\
+        \proofstep{2k + 1 + 2k + 1 = n}{Expand b}\\
+        \proofstep{4k+2 = n}{Simplify}\\
+        \proofstep{2(2k+1) = n}{Factor out 2}\\
+        \proofstep{2b = n}{Definition of an even number, b is some integer}
+      }
+      \end{twocolproof}
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{3}{Show that the square of an even number is an even number using a direct proof.}{
+    \begin{proof}
+      Assume $a$ is even.
+      $$\text{Let }a = 2k, \text{ k is some integer}$$
+      \begin{twocolproof} {
+        \proofstep{a * a = n}{The square of two even numbers}\\
+        \proofstep{2k * 2k = n}{Expand a}\\
+        \proofstep{2 * 2k^2 = n}{Rearrange terms}\\
+        \proofstep{\text{Let } j = 2k^2}{}\\
+        \proofstep{2j = n}{Definition of an even number, j is some integer}
+      }
+      \end{twocolproof}
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{4}{Show that the additive inverse, or negative, of an even number is an even number using a direct proof.}{
+    \begin{proof}
+      Assume $a$ is even.
+      $$\text{Let }a = 2k, \text{ k is some integer}$$
+      \begin{twocolproof} {
+        \proofstep{a * -1 = n}{Additive inverse of an even number}\\
+        \proofstep{2k * -1 = n}{Expand}\\
+        \proofstep{2(-k) = n}{Rearrange terms}\\
+        \proofstep{\text{Let } j = -k}{}\\
+        \proofstep{2j = n}{Definition of an even number, j is some integer}
+      }
+      \end{twocolproof}
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{6}{Use a direct proof to show that the product of two odd numbers is odd.}{
+    \begin{proof}
+      Assume $a$ is odd.
+      $$\text{Let }a = 2k + 1, \text{ k is some integer}$$
+      $$\text{Let i be some integer}$$
+      $$\text{Let j be some integer}$$
+      \begin{twocolproof} {
+        \proofstep{ai * aj = n}{Product of 2 odd numbers}\\
+        \proofstep{i(2k + 1) * j(2k + 1) = n}{Expand}\\
+        \proofstep{(2k + 1)\left(i * j*(2k + 1)\right) = n}{Rearrange terms}\\
+        \proofstep{\text{Let } m = \left(i * j*(2k + 1)\right)}{}\\
+        \proofstep{am = n}{Definition of an odd number, m is some integer}
+      }
+      \end{twocolproof}
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{8}{Prove that if $n$ is a perfect square, then $n+2$ is not a perfect square.}{
+    \begin{proof}
+      We can define $a$ as a perfect square
+      $$\text{Let }a = k^2, \text{ k is some integer}\\$$
+      We can prove this by contradiction by assuming that if $n = i^2$ then $n+2 = j^2$. 
+      \begin{twocolproof} {
+        \proofstep{n+2 = j^2}{Assumption}\\
+        \proofstep{2 = j^2 - n}{Subtract n from both sides}\\
+        \proofstep{2 = j^2 - i^2}{Replace n with $i^2$}\\
+        \proofstep{2 = (j - i)(j + i)}{Factor}\\
+        \proofstep{
+          \frac{\stackon{+j + i = 2}{j - i = 1}}{2j = 3}
+          }{}\\
+        \proofstep{j = \frac{2}{3}}{j is not an integer so this is a contradiction}
+      }
+      \end{twocolproof}
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{9}{Use a proof by contradiction to prove that the sum of an irrational number and a rational number is irrational.}{
+    \begin{proof}
+      We can define a rational number as a fraction of 2 integers.
+      $$\text{Let }r = \frac{p}{q}, \text{ p and q are integers, $q \not = 0$}\\$$
+      Let x be an irrational number and let y be a rational number. To prove this by contradiction we will assume that the sum of x and y are rational. Using the definition of a rational number we can say
+      $$x + y = \frac{p}{q}, \text{ p and q are integers, $q \not = 0$}$$
+      and that
+      $$y = \frac{a}{b}, \text{ a and b are integers, $q \not = 0$}$$
+      such that
+      $$x + \frac{a}{b} = \frac{p}{q}$$
+      From here we can subtract $\frac{a}{b}$ from both sides
+      $$x = \frac{p}{q} - \frac{a}{b} = \frac{pb - aq}{qb}$$
+      a, b, p, and q are all nonzero integers. This would imply that x is rational, which contradicts our original assumption that x is irrational. Therefore our assumption that x + y is rational is false.
+      $$\text{\\}$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{13}{Prove that if x is irrational, then 1/x is irrational.}{
+    \begin{proof}
+      We can define a rational number as a fraction of 2 integers.
+      $$\text{Let }r = \frac{p}{q}, \text{ p and q are integers, $q \not = 0$}\\$$
+      Let x be an irrational number. To prove this by contradiction we will assume that 1/x is rational. Using the definition of a rational number we can say
+      $$\frac{1}{x} = \frac{p}{q}, \text{ p and q are integers, $q \not = 0$}$$
+      Taking the reciprocal of both sides we get
+      $$x = \frac{q}{p}$$
+      This would imply that x is a rational number, which contradicts our assumption that 1/x is rational if x is irrational. Therefore our assumption that $\frac{1}{x}$ is rational is false
+      $$\text{}$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{17}{Show that if $n$ is an integer and $n^3+5$ is odd, then $n$ is even}{
+    \begin{problem}{a}{Using proof by contraposition}{
+      \begin{proof}
+        We can define an even number as $a$ and an odd number as $b$ where
+        $$\text{Let }a = 2k, \text{ k is some integer}$$
+        $$\text{Let }b = 2k + 1, \text{ k is some integer}$$
+        To prove this by contraposition, we must show that that if $n$ is \textbf{not} even then $n^3+5$ is \textbf{not} odd. In other words, if $n$ is odd then $n^3+5$ is even. We will let n be an odd number such that
+        $$n = 2k + 1, \text{ k is some integer}$$
+        so we can write this statement as
+        $$m = (2k + 1)^3 + 5$$
+        Expanding this out gives us
+        $$m = 8k^3 + 12k^2 + 6k + 6$$
+        From here, we can factor a 2 from the entire polynomial
+        $$m = 2(4k^3 + 6k^2 + 3k + 3)$$
+        Since k is an integer, the result of $4k^3 + 6k^2 + 3k + 3$ will also be an integer, which we will define as c. We can then say
+        $$m = 2c$$
+        Which matches the definition of an even number. Thus we have proved that that if $n$ is odd then $n^3+5$ is even
+        $$$$
+      \end{proof}
+    }
+    \end{problem}
+    \pagebreak
+    \begin{problem}{b}{Using proof by contradiction}{
+      \begin{proof}
+        We can define an even number as $a$ and an odd number as $b$ where
+        $$\text{Let }a = 2k, \text{ k is some integer}$$
+        $$\text{Let }b = 2k + 1, \text{ k is some integer}$$
+        To prove this by contradiction we will assume that if $n^3+5$ is odd, then $n$ is odd. We will let n be an odd number such that
+        $$n = 2k + 1, \text{ k is some integer}$$
+        and that the result of $(2k + 1)^3 + 5$ is odd such that 
+        so we can write this statement as
+        $$2j + 1 = (2k + 1)^3 + 5, \text{ j is some integer}$$
+        Expanding this out gives us
+        $$2j + 1 = 8k^3 + 12k^2 + 6k + 6$$
+        From here, we can factor a 2 from the right side
+        $$2j + 1 = 2(4k^3 + 6k^2 + 3k + 3)$$
+        Since k is an integer, the result of $4k^3 + 6k^2 + 3k + 3$ will also be an integer, which we will define as c. We can then say
+        $$2j + 1 = 2c$$
+        This is saying that an even number is equal to an odd number, which is a contradiction. Therefore if $n^3+5$ is odd, then $n$ must be even
+        $$$$
+      \end{proof}
+    }
+    \end{problem}
+  }
+  \end{problem}
+  \begin{problem}{19}{Prove the proposition $P(0)$, where $P(n)$ is the proposition "If n is a positive integer greater than 1, then $n^2 > n$." What kind of proof did you use?}{
+    \begin{proof}
+      The proposition states that if $n > 1$ then $n^2 > n$ so for $P(0)$, if $0 > 1$ then $0 > 0$. This is trivially true by vacuous proof.
+      $$\text{}$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{23}{Show that at least ten of any 64 days chosen must fall on the same day of the week.}{
+    \begin{proof}
+      We will prove this using a contradiction. Assume that only 9 or less of any 64 days fall on the same day of the week. This means we can choose $9 * 7 = 63$ days, which is less than 64 days, so this is a contradiction.
+      $$\text{}$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{27}{Prove that if n is a positive integer, then $n$ is odd if and only if $5n+6$ is odd}{
+    \begin{proof}
+      Because this is a biconditional statement, our proof will have 2 parts. First we will prove that if $n$ is odd then $5n+6$ is odd using a direct proof. To do this we will need to define an odd number $a$ and an even number $b$ as such
+      $$\text{Let }a = 2k + 1, \text{ k is some integer}$$
+      $$\text{Let }b = 2k, \text{ k is some integer}$$
+      We will let n be some odd number such that
+      $$n = 2k + 1$$
+      and that
+      $$5(2k + 1) + 6 = 2j + 1, \text{ j is some integer}$$
+      Distributing the 5 to $2k + 1$ gives us 
+      $$10k + 5 + 6 = 2j + 1$$
+      Which can then be rewritten as
+      $$10k + 10 + 1 = 2j + 1$$
+      We can now factor out a 2 from $10k + 10$
+      $$2(5k + 5) + 1 = 2j + 1$$
+      k is an integer so the result of $5k + 5$ will also be an integer which we will represent with $c$
+      $$2c + 1 = 2j + 1$$
+      Using the definition of an odd number, we have shown that if n is odd then $5n+6$ is odd.\\\\
+      We now need to prove that if $5n+6$ is odd then $n$ is odd. This time we will use a proof by contradiction. Suppose if $5n+6$ is odd, then $n$ is not odd. Using the definitions of even and odd numbers, we will let n be some even number such that
+      $$n = 2k, \text{ k is some integer}$$
+      and we will let $5n+6$ be an odd number such that
+      $$5(2k)+6=2j + 1, \text{ j is some integer}$$
+      Multiplying out the left side gives us
+      $$10k+6=2j + 1$$
+      We can factor out a 2 from $10k + 6$
+      $$2(5k+3)=2j + 1$$
+      And because k is an integer, the result of $5k+3$ will also be an integer which we will represent with $c$
+      $$2c=2j + 1$$
+      Using the definition of even and odd numbers, this contradicts our supposition that if $5n+6$ is odd, then $n$ is not odd.
+      Therefore, we have shown that if $5n+6$ is odd then $n$ is odd.
+      $$\text{}$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{35}{Are these steps for finding the solutions of $\sqrt{x+3} = 3-x$ correct?
+    \begin{twocolproof} {
+      \proofstep{\sqrt{x+3} = 3-x}{Given}\\
+      \proofstep{x+3=x^2-6x+9}{Square both sides of (1)}\\
+      \proofstep{0=x^2-7x+6}{Subtract x+3 from both sides of (2)}\\
+      \proofstep{0=(x-1)(x-6)}{Factor the right-hand side of (3)}\\
+      \proofstep{x=1\text{ or }x=6,}{Follows from (4) because $ab=0$ implies that $a=0$ or $b=0$}
+    }
+    \end{twocolproof}
+    }{
+    This is not correct because $3-6$ would yield a negative number which is not in the range of a square root
+  }
+  \end{problem}
+\end{document}
