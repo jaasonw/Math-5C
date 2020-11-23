@@ -1,0 +1,177 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, array, fancyhdr, enumerate, enumitem, stackengine}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{1.8 Proof Methods and Strategy}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\lnot\neg
+\let\xor\oplus
+
+
+% floor function
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+
+% draws a black square for proofs
+\renewcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\proofstep}[2]{&#1 &&\ \  \text{#2}}
+
+% args: (number, question, steps, explanation)
+\newenvironment{twocolproof}[1]{
+    \begin{align}
+      #1
+    \end{align}
+    \setcounter{equation}{0}
+}
+% \newenvironment{twocolproof}[4]{
+%     \begin{enumerate}
+%         \item[\bfseries{#1}] #2
+%         \begin{align}
+%             #3
+%         \end{align}
+%         #4
+%     \end{enumerate}
+%     \setcounter{equation}{0}
+% }
+
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] #3
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+  \begin{problem}{3}{Prove that if x and y are real numbers, then max(x, y) +
+    min(x, y) = x + y}{
+    \begin{proof}
+      To prove this statement, we will use a proof by cases. The first case will assume that $x > y$ and the second will assume $x < y$\\
+      CASE 1: Assume $x > y$ then\\
+      $$min(x,y) = y$$
+      $$max(x,y) = x$$
+      $$min(x,y) + max(x,y) = y + x$$
+      CASE 2: Assume $x < y$ then\\
+      $$min(x,y) = x$$
+      $$max(x,y) = y$$
+      $$min(x,y) + max(x,y) = x + y$$
+      CASE 2: Assume $x = y$ then\\
+      $$min(x,y) = x = y = x = max(x,y)$$
+      $$min(x,y) + max(x,y) = x + x$$
+      Since $x = y$
+      $$min(x,y) + max(x,y) = x + y$$
+      Since $min(x,y) + max(x,y) = x + y$ is true for all cases, the statement is always true
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{5}{Prove using the notion of without loss of generality
+    that $min(x, y) = (x + y - |x - y|)/2$ and $max(x, y) =
+    (x + y + |x - y|)/2$ whenever x and y are real numbers}{
+    \begin{proof}
+      W.L.O.G. Assume $max(x, y) = x$
+      $$min(x, y) = y = \frac{x + y - |x - y|}{2} = \frac{x + y - (x - y)}{2}  = \frac{x + y - x + y}{2}$$
+      $$max(x, y) = x = \frac{x + y + |x - y|}{2} = \frac{x + y + (x - y)}{2}  = \frac{x + y + x - y}{2}$$
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{9}{Prove that there are 100 consecutive positive integers that are not perfect squares. Is your proof constructive or non constructive?}{
+    \begin{proof}
+      $$\text{Let a} = 99$$
+      $$\text{Let b} = 100$$
+      $$a^2 = 9801$$
+      $$b^2 = 10000$$
+      There are no integers between a and b so there can be no integers in between $a^2$ and $b^2$ which have a square root between a and b. This proof is constructive because it demonstrates the existence of 100 consecutive integers that are not perfect squares.
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{13}{Prove or disprove that there is a rational number $x$ and an irrational number $y$ such that $x^y$ is irrational}{
+    \begin{proof}
+      Let x = 2, a rational number and let y = $\pi$, an irrational number.\\
+      $3^{\pi}$ is irrational, thus this shows the existence of a rational number $x$ and an irrational number $y$ such that $x^y$ is irrational
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{19}{Show that if $n$ is an odd integer, then there is a unique integer $k$ such that $n$ is the sum of $k - 2$ and $k + 3$.}{
+    \begin{proof}
+      We need to show the existence of an integer k such that if n is an odd integer, then
+      $$n = (k-2) + (k + 3)$$
+      We can define an odd integer c as
+      $$c = 2d + 1, \text{Where d is an integer}$$
+      Simplfying $n = (k-2) + (k + 3)$ we get
+      $$n = 2k + 1$$
+      The definition of an odd integer. Thus we have shown given $n = (k-2) + (k + 3)$, n will be odd for all integers k.
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \begin{problem}{21}{Prove that given a real number x there exist unique numbers $n$ and $\epsilon$ such that $x = n - \epsilon$, $n$ is an integer and $0 \leq \epsilon < 1$}{
+    \begin{proof}
+      Assume $n = \floor{x}$ such that $x = \floor{x} - \epsilon$
+      $$\epsilon = -x + \floor{x}$$
+      CASE 1: x is an integer, $x \in \mathbb{Z}$
+      $$n = \floor{x} = x$$
+      $$\epsilon = -x + x$$
+      $$\epsilon = 0$$
+      CASE 2: x is not an integer, $x \not \in \mathbb{Z}$
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{29}{Prove that there is no positive integer $n$ such that $n^2 + n^3 = 100$}{
+    \begin{proof}
+      Proof by contradiction: Assume there exists an integer n such that $n^2 + n^3 = 100$.\\
+      Factoring $n^2$ from the left hand side gives us
+      $$n^2(1 + n) = 100$$
+      Which can then be rewritten as
+      $$1 + n = \frac{100}{n^2}$$
+      Because n would have to be an integer, the right hand side of this equation would have to evaluate to an integer so the denominator would need to evaluate to less than or equal to 100 and evenly divide 100. The only numbers that satisfy this criteria are $\{1, 4, 25, 100\}$, making the possible solutions for $n = \{1, 2, 5, 10\}$. None of these values make the equation true. Therefore it contradicts our assumption that there exists an integer n that satisfies$n^2 + n^3 = 100$ 
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+\end{document}

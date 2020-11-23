@@ -1,0 +1,279 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm, array, fancyhdr, enumerate, enumitem, stackengine}
+\usepackage[margin = 1in]{geometry}
+
+\def\class{Math 22}
+\def\header{5.1 Mathematical Induction}
+\def\first{Jason}
+\def\last{Wong}
+
+\fancypagestyle{useheader}
+{
+  \fancyhf{}
+  \setlength{\headsep}{\baselineskip}
+  \lhead{\class}
+  \chead{\header}
+  \rhead{\last, \first}
+  \cfoot{\thepage}
+}
+
+% logical operators
+\let\iff\leftrightarrow
+\let\lnot\neg
+\let\xor\oplus
+
+
+% floor function
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+
+
+% draws a black square for proofs
+\renewcommand{\qed}{\hfill$\blacksquare$}
+
+\newcommand{\solution}[1]{
+  \textbf{Solution} #1
+}
+
+\newcommand{\step}[1]{
+  \begin{enumerate}
+    \item[{}] #1
+  \end{enumerate}
+}
+
+% args: (equation (aligns at & sign: x &= y), explanation)
+\newcommand{\proofstep}[2]{&#1 &&\ \  \text{#2}}
+
+% args: (number, question, steps, explanation)
+\newenvironment{twocolproof}[1]{
+    \begin{align}
+      #1
+    \end{align}
+    \setcounter{equation}{0}
+}
+% \newenvironment{twocolproof}[4]{
+%     \begin{enumerate}
+%         \item[\bfseries{#1}] #2
+%         \begin{align}
+%             #3
+%         \end{align}
+%         #4
+%     \end{enumerate}
+%     \setcounter{equation}{0}
+% }
+
+
+% args (number, problems, subproblemss)
+\newenvironment{nestedproblem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    #3
+  \end{enumerate}
+  \hfill
+}
+
+% args: (number, question, solution)
+\newenvironment{problem}[3]{
+  \begin{enumerate}
+    \item[\bfseries{#1}] #2
+    \begin{enumerate}
+      \item[{}] #3
+    \end{enumerate}
+  \end{enumerate}
+  \hfill
+}
+
+\begin{document}
+\pagestyle{useheader}
+  \begin{problem}{3}{Let $P(n)$ be the statement that $1^2 + 2^2 + ... + n^2 = n(n + 1)(2n + 1)/6$ for the positive integer $n$.}{
+    \begin{problem}{a}{What is the statement P(1)?}{
+      $P(1) = 1^2$
+    }
+    \end{problem}
+    \begin{problem}{b}{Show that P(1) is true, completing the basis step of
+      the proof.}{
+      \begin{proof}
+        $$P(1) = 1^2 = 1(1 + 1)(2(1) + 1)/6$$
+        $$P(1) = 1^2 = (2)(2 + 1)/6$$
+        $$P(1) = 1^2 = 6/6$$
+        $$P(1) = 1^2 = 1$$
+        $\therefore$ P(1) is verified
+        $$$$
+      \end{proof}
+    }
+    \end{problem}
+    \begin{problem}{c}{What is the inductive hypothesis?}{
+      Assume P(k) is true where k is an arbitrary integer $k \ge 1$
+    }
+    \end{problem}
+    \begin{problem}{d}{What do you need to prove in the inductive step?}{
+      We need to show
+      $$P(k+1) = \frac{(k + 1)((k + 1) + 1)(2(k + 1) + 1)}{6} = \frac{(k + 1)(k + 2)(2k + 3)}{6}$$
+    }
+    \end{problem}
+    \begin{problem}{e}{Complete the inductive step, identifying where you use the inductive hypothesis.}{
+      \begin{proof}
+        Using our assumption that P(k) is true, 
+        $$P(k) = 1^2 + 2^2 + ... + k^2 = k(k + 1)(2k + 1)/6$$
+        We need to show that if P(k) is true then it has to be true for the next consecutive k, P(k + 1). Using
+        $$1^2 + 2^2 + ... + k^2 = k(k + 1)(2k + 1)/6$$
+        We can add $(k + 1)^2$ to both sides of the equation to get
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{k(k + 1)(2k + 1)}{6} + (k + 1)^2$$
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{k(k + 1)(2k + 1) + 6(k + 1)^2}{6}$$
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{(k + 1)(k(2k + 1) + 6(k + 1))}{6}$$
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{(k + 1)(2k^2 + k + 6k + 6)}{6}$$
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{(k + 1)(2k^2 + 7k + 6)}{6}$$
+        $$1^2 + 2^2 + ... + k^2 + (k + 1)^2 = \frac{(k + 1)(k + 2)(2k + 3)}{6} = P(k+1)$$
+        $$$$
+      \end{proof}
+    }
+    \end{problem}
+    \begin{problem}{f}{Explain why these steps show that this formula is true whenever n is a positive integer.}{
+      We showed that this statement is true for the basis P(1) and then showed that the statement is true for any P(k + 1)\\\\
+      And it was at this moment when I realized that I probably should have just written this assignment
+    }
+    \end{problem}
+  }
+  \end{problem}
+  \begin{problem}{8}{Prove that $2 - 2(7) + 2(7^2) - ... + 2(-7)^n =\frac{1 - (-7)^{n + 1}}{4}$ whenever n is a nonnegative integer}{
+    \begin{proof}
+      We begin by expressing the statement as for all $n \ge 0, P(n)$\\
+      Basis Step: Show P(0) is true
+      $$P(0) = 2(7^0) = 2$$
+      $$P(0) = \frac{(1 - (-7)^{0 + 1})}{4}$$
+      $$P(0) = \frac{(1 - (-7))}{4}$$
+      $$P(0) = \frac{8}{4} = 2$$
+      Inductive Step: Assume $P(k)$ is true for an arbitrary integer $k \ge 0$. We need to show that
+      $$P(k+1) = \frac{1 - (-7)^{(k + 1) + 1}}{4}$$
+      is true. We will show this by starting with $2 - 2(7) + 2(7^2) - ... + 2(-7)^k =\frac{1 - (-7)^{k + 1}}{4}$ and adding $2(-7)^{(k + 1)}$ to both sides
+      $$2 - 2(7) + 2(7^2) - ... + 2(-7)^k + 2(-7)^{(k + 1)} = \frac{1 - (-7)^{k + 1}}{4} + 2(-7)^{(k + 1)}$$
+      $$2 - 2(7) + 2(7^2) - ... + 2(-7)^k + 2(-7)^{(k + 1)} = \frac{1 - (-7)^{k + 1} + 8(-7)^{(k + 1)}}{4}$$
+      $$2 - 2(7) + 2(7^2) - ... + 2(-7)^k + 2(-7)^{(k + 1)} = \frac{1 + 7(-7)^{(k + 1)}}{4}$$
+      $$2 - 2(7) + 2(7^2) - ... + 2(-7)^k + 2(-7)^{(k + 1)} = \frac{1 (-1)(-7)(-7)^{(k + 1)}}{4}$$
+      $$2 - 2(7) + 2(7^2) - ... + 2(-7)^k + 2(-7)^{(k + 1)} = \frac{1 -(-7)^{(k + 1) + 1}}{4} = P(k+1)$$
+      This completes the induction step, proving that $2 - 2(7) + 2(7^2) - ... + 2(-7)^n =\frac{1 - (-7)^{n + 1}}{4}$ is true for all nonnegative integers
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{11}{}{
+    \begin{problem}{a}{Find a formula for
+      $\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^n}$
+    }{
+      $$\frac{2^n - 1}{2^n}$$
+    }
+    \end{problem}
+    \begin{problem}{b}{Prove the formula you conjectured in part (a).}{
+      \begin{proof}
+        For all $n \ge 1, P(n)$\\
+        Basis Step: Show P(1) is true
+        $$P(1) = \frac{1}{2^1} = \frac{1}{2}$$
+        $$P(1) = \frac{2^1 - 1}{2^1} = \frac{1}{2}$$
+        Inductive Step: Assume $P(k)$ is true for an arbitrary integer $k \ge 1$. We need to show that
+        $$P(k+1) = \frac{2^{(k+1)} - 1}{2^{(k+1)}}$$
+        Starting with $\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} = \frac{2^k - 1}{2^k}$ we will add $\frac{1}{2^{(k+1)}}$ on both sides
+        $$\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} + \frac{1}{2^{(k+1)}} = \frac{2^k - 1}{2^k} + \frac{1}{2^{(k+1)}}$$
+        $$\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} + \frac{1}{2^{(k+1)}} = \frac{2}{2}\cdot \frac{2^k - 1}{2^k} + \frac{1}{2^{(k+1)}}$$
+        $$\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} + \frac{1}{2^{(k+1)}} = \frac{2^{(k+1)} - 2}{2^{(k+1)}} + \frac{1}{2^{(k+1)}}$$
+        $$\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} + \frac{1}{2^{(k+1)}} = \frac{2^{(k+1)} - 1}{2^{(k+1)}} = P(k+1)$$
+        This completes the induction step, thus we have proven that $\frac{1}{2} + \frac{1}{4} + \frac{1}{8} + ... +\frac{1}{2^k} = \frac{2^k - 1}{2^k}$ is valid for all positive integers
+        $$$$
+      \end{proof}
+    }
+    \end{problem}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{19}{Let P(n) be the statement that
+    $$1 + \frac{1}{4} + \frac{1}{4} + \frac{1}{9} + ... +\frac{1}{n^2} < 2 - \frac{1}{n}$$
+    where n is an integer greater than 1.}{
+    \begin{problem}{a}{
+      What is the statement P(2)?
+    }{
+      $$P(2) = 1 + \frac{1}{4} < 2 - \frac{1}{2}$$
+    }
+    \end{problem}
+    \begin{problem}{b}{Show that P(2) is true, completing the basis step of
+      the proof.}{
+      $$P(2) = \frac{5}{4} < \frac{3}{2}$$
+    }
+    \end{problem}
+    \begin{problem}{c}{What is the inductive hypothesis?}{
+      Assume P(k) is true where k is an arbitrary integer $k \ge 1$
+    }
+    \end{problem}
+    \begin{problem}{d}{What do you need to prove in the inductive step?}{
+      $$P(k + 1) = 1 + \frac{1}{4} + \frac{1}{4} + \frac{1}{9} + ... +\frac{1}{(k+1)^2} < 2 - \frac{1}{(k+1)}$$
+    }
+    \end{problem}
+    \begin{problem}{e}{Complete the inductive step.}{
+      Start with
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} < 2 - \frac{1}{k}$$
+      Add $\frac{1}{(k+1)^2}$ on both sides
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} + \frac{1}{(k+1)^2} < 2 - \frac{1}{k} + \frac{1}{(k+1)^2}$$
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} + \frac{1}{(k+1)^2} < 2 - \frac{-(k+1)^2 + k}{k(k+1)^2}$$
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} + \frac{1}{(k+1)^2} < 2 - \frac{-(k^2 + 2k + 1) + k}{k(k+1)^2}$$
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} + \frac{1}{(k+1)^2} < 2 - \frac{-k^2 - k - 1}{k(k+1)^2}$$
+      $$P(k) = 1 + \frac{1}{4} + \frac{1}{8} + \frac{1}{9} + ... +\frac{1}{k^2} + \frac{1}{(k+1)^2} < 2 - \frac{k^2 + k + 1}{k(k+1)^2}$$
+      }
+    \end{problem}
+  }
+  \end{problem}
+  \pagebreak
+  \begin{problem}{51}{
+    What is wrong with this "proof"?\\
+    "Theorem": For every positive integer $n$, if $x$ and $y$ are positive integers with $max(x, y) = n$, then $x = y$\\
+    Basis Step: Suppose that $n = 1$. If $max(x, y) = 1$ and $x$ and $y$ are positive integers, we have $x = 1$ and $y = 1$.\\
+    Inductive Step: Let k be a positive integer.\\
+    Assume that whenever $max(x, y) = k$ and $x$ and $y$ are positive integers, then $x = y$.\\
+    Now let $max(x, y) = k + 1$, where $x$ and $y$ are positive integers. \\
+    Then $max(x - 1, y - 1) = k$, so by the inductive hypothesis, $x - 1 = y - 1$. It follows that $x = y$, completing the inductive step.
+  }{
+    $max(x,y)$ would return an integer k regardless of if $x = y$
+  }
+  \end{problem}
+  \begin{problem}{57}{Use mathematical induction to prove that the derivative of $f(x) = x^n$ equals $f(x) = nx^{n - 1}$
+  }{
+    \begin{proof}
+      For all $n > 0, P(n) = \frac{d}{dx} x^n = nx^{n - 1}$\\
+      Basis step: Show that $P(1)$ is true\\
+      $$P(1) = \frac{d}{dx} x^1 = 1$$
+      $$P(1) = 1x^{1 - 1} = 1$$
+      Inductive step: Assume that $P(k)$ is true for an arbitrary integer $k \ge 1$. Show that $P(k + 1) = \frac{d}{dx} x^{(k + 1)} = (k + 1)x^{k}$
+      We will start with the base statement
+      $$\frac{d}{dx} x^k = kx^{k - 1}$$
+      And to add 1 to the exponent we will multiply both sides by x
+      $$\frac{d}{dx} x(x^k) = x(kx^{k - 1})$$
+      We will then use the product rule on the left hand side 
+      $$\frac{d}{dx}(x)(x^k) + (x)\frac{d}{dx}(x^k) = x(kx^{k - 1})$$
+      $$x^k + (x)(kx^{k - 1}) = x(kx^{k - 1})$$
+      $$x^k + kx^k = x(kx^{k - 1})$$
+      $$x^k(1 + k) = x(kx^{k - 1})$$
+      The left hand side matches our inductive hypothesis, thus proven.
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  \pagebreak
+  Suppose there are n people in a group, each aware of a scandal no one else in the group knows about. These people communicate by telephone; when two people in the group talk, they share information about all scandals each knows about. For example, on the first call, two people share information, so by the end of the call, each of these people knows about two scandals. The gossip problem asks for G(n), the minimum number of telephone calls that are needed for all n people to learn about all the scandals. Exercises 69–71 deal with the gossip problem.
+  \begin{problem}{69}{Find G(1), G(2), G(3), and G(4)}{
+    $$G(1) = 0$$
+    $$G(2) = 1$$
+    $$G(3) = 3$$
+    $$G(4) = 4$$
+  }
+  \end{problem}
+  \begin{problem}{70}{Use mathematical induction to prove that $G(n) \le 2n - 4$ for $n \ge 4$}{
+    \begin{proof}
+      Basis step: Show that G(1) = 0
+      $$G(1) = 0 = \le 2(1) - 4$$
+      $$G(1) = 0 = \le 4 - 4$$
+      $$G(1) = 0 = \le 0$$
+      Assumption: $G(k) \le 2k - 4$ for $k \ge 4$
+      Basis step: Show that $G(k + 1) \le 2k - 4 + 2$
+      $$$$
+    \end{proof}
+  }
+  \end{problem}
+  
+\end{document}
